@@ -1,0 +1,47 @@
+﻿@model List<PC.Services.DL.ViewModels.UserRoleViewModel>
+
+@{
+    var roleId = ViewBag.roleId;
+    //Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<div class="modal fade" id="addUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addRoleLabel">Add Roles to User</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>X</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form controller="Admin" action="EditUsersInRole" >
+
+                    <input type="hidden" id="SelectedRoleId" value="@roleId" />
+                    <div class="form-group">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <div class="form-check m-1">
+                                <input type="hidden" asp-for="@Model[i].UserId" />
+                                <input type="hidden" asp-for="@Model[i].UserName" />
+                                <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                                <label class="form-check-label" style="margin-right:20px !important" asp-for="@Model[i].IsSelected">
+                                    @Model[i].UserName
+                                </label>
+                            </div>
+                        }
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-save="modal" data-url="@Url.Action($"EditUsersInRole")">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+

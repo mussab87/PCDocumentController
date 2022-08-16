@@ -1,0 +1,84 @@
+﻿@model PC.Services.Core.Models.JobTitle
+
+@{
+    ViewBag.Title = "Update JOb Title";
+}
+
+    <form asp-action="Edit" method="post">
+    <div class="container-fluid">
+
+        <div class="row">
+            <br />
+            <br />
+        </div>
+
+        <div class="row">
+            <ul>
+                <li class="step show" id="step-1">
+                    <div class="bar">
+                        
+                        <h3>Update Job Title</h3>
+                        <div class="status"></div>
+                    </div>
+
+                    <div class="box">
+                        <div class="field-holder">
+                            <input type="hidden" asp-for="CreatedById" />
+                            <input type="hidden" asp-for="CreatedDateTime" />
+                            <input type="hidden" asp-for="UpdatedById" />
+                            <input type="hidden" asp-for="UpdatedDateTime" />
+                            <input type="hidden" asp-for="JobTitleId" />
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for=JobTitleId>Job Title Id</label>
+                                    
+                                    <input type="text" asp-for=JobTitleId class="form-control input-lg" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for=JobTitleName>Job Title Name </label>
+                                    <input type="text" asp-for=JobTitleName class="form-control input-lg"  maxlength="50" required="required" />
+                                </div>
+                            </div>                            
+                        </div>
+
+                         <div class="btn-group pull-right row" id="divSaveRecordButton">
+                <div class="form-group col-md-12" style="padding-right: 50px; padding-bottom: 20px">
+                    <button class="btn btn-primary m-b-md" type="submit" title="Save" value="" onclick="btnRecordSaveClick();">
+                        <span><i class="fa fa-floppy-o"></i>&nbsp;Save</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="btn-group pull-left row" id="divBackRecordButton">
+                <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
+                  <a asp-action="Index" class="btn btn-primary m-b-md" type="button" title="Back">
+                      <span><i class="fa fa-arrow-left"></i>&nbsp;Back</span>
+                  </a>  
+                        
+                </div>
+            </div>
+                    </div>
+                </li>
+
+                <br />
+            </ul>
+
+           
+        </div>
+
+    </div>
+    </form>
+    <!-- Vendor scripts -->
+    <script src="~/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- App scripts -->
+    <script src="~/scripts/main.js"></script>
+    
+    <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>   
+
+

@@ -1,0 +1,630 @@
+.icon {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
+
+/* =======================================================================================
+Example showing how to change the color/size of the icons:
+.icon-name {
+	font-size: 32px; // works because "width" & "height" were set using em units
+	color: red; // works for single-colored icons, because "fill" was set to "currentColor"
+}
+======================================================================================== */
+
+.icon-untitled {
+	width: 0.8125em;
+}
+
+.icon-untitled2 {
+	width: 0.875em;
+}
+
+.icon-untitled3 {
+	width: 0.875em;
+}
+
+.icon-untitled5 {
+	width: 0.9375em;
+}
+
+.icon-untitled6 {
+	width: 0.8125em;
+}
+
+.icon-untitled7 {
+	width: 0.6875em;
+}
+
+.icon-untitled8 {
+	width: 0.6875em;
+}
+
+.icon-untitled10 {
+	width: 0.625em;
+}
+
+.icon-untitled11 {
+	width: 0.9375em;
+}
+
+.icon-untitled12 {
+	width: 0.875em;
+}
+
+.icon-untitled13 {
+	width: 0.9375em;
+}
+
+.icon-untitled14 {
+	width: 0.8125em;
+}
+
+.icon-untitled17 {
+	width: 0.8125em;
+}
+
+.icon-untitled18 {
+	width: 0.9375em;
+}
+
+.icon-untitled20 {
+	width: 0.9375em;
+}
+
+.icon-untitled21 {
+	width: 0.875em;
+}
+
+.icon-untitled22 {
+	width: 0.8125em;
+}
+
+.icon-untitled23 {
+	width: 0.9375em;
+}
+
+.icon-untitled24 {
+	width: 0.8125em;
+}
+
+.icon-untitled25 {
+	width: 0.8125em;
+}
+
+.icon-untitled26 {
+	width: 0.8125em;
+}
+
+.icon-untitled27 {
+	width: 0.6875em;
+}
+
+.icon-untitled28 {
+	width: 0.875em;
+}
+
+.icon-untitled29 {
+	width: 0.8125em;
+}
+
+.icon-untitled31 {
+	width: 0.875em;
+}
+
+.icon-untitled32 {
+	width: 0.875em;
+}
+
+.icon-untitled33 {
+	width: 0.9375em;
+}
+
+.icon-untitled34 {
+	width: 0.8125em;
+}
+
+.icon-untitled35 {
+	width: 0.8125em;
+}
+
+.icon-untitled36 {
+	width: 0.875em;
+}
+
+.icon-untitled37 {
+	width: 0.625em;
+}
+
+.icon-untitled38 {
+	width: 0.9375em;
+}
+
+.icon-untitled39 {
+	width: 0.9375em;
+}
+
+.icon-untitled40 {
+	width: 0.5625em;
+}
+
+.icon-untitled41 {
+	width: 0.9375em;
+}
+
+.icon-untitled42 {
+	width: 0.875em;
+}
+
+.icon-untitled43 {
+	width: 0.8125em;
+}
+
+.icon-untitled44 {
+	width: 0.8125em;
+}
+
+.icon-untitled45 {
+	width: 0.8125em;
+}
+
+.icon-untitled46 {
+	width: 0.9375em;
+}
+
+.icon-untitled47 {
+	width: 0.875em;
+}
+
+.icon-untitled48 {
+	width: 0.875em;
+}
+
+.icon-untitled49 {
+	width: 0.8125em;
+}
+
+.icon-untitled50 {
+	width: 0.5em;
+}
+
+.icon-untitled52 {
+	width: 0.875em;
+}
+
+.icon-untitled53 {
+	width: 0.875em;
+}
+
+.icon-untitled54 {
+	width: 0.625em;
+}
+
+.icon-untitled55 {
+	width: 0.8125em;
+}
+
+.icon-untitled56 {
+	width: 0.875em;
+}
+
+.icon-untitled57 {
+	width: 0.6875em;
+}
+
+.icon-untitled58 {
+	width: 0.875em;
+}
+
+.icon-untitled59 {
+	width: 0.875em;
+}
+
+.icon-untitled60 {
+	width: 0.875em;
+}
+
+.icon-untitled61 {
+	width: 0.75em;
+}
+
+.icon-untitled64 {
+	width: 0.6875em;
+}
+
+.icon-untitled65 {
+	width: 0.5em;
+}
+
+.icon-untitled66 {
+	width: 0.875em;
+}
+
+.icon-untitled67 {
+	width: 0.875em;
+}
+
+.icon-untitled68 {
+	width: 0.6875em;
+}
+
+.icon-untitled69 {
+	width: 0.875em;
+}
+
+.icon-untitled70 {
+	width: 0.8125em;
+}
+
+.icon-untitled71 {
+	width: 0.875em;
+}
+
+.icon-untitled72 {
+	width: 0.875em;
+}
+
+.icon-untitled73 {
+	width: 0.875em;
+}
+
+.icon-untitled74 {
+	width: 0.8125em;
+}
+
+.icon-untitled75 {
+	width: 0.875em;
+}
+
+.icon-untitled76 {
+	width: 0.875em;
+}
+
+.icon-untitled77 {
+	width: 0.8125em;
+}
+
+.icon-untitled78 {
+	width: 0.9375em;
+}
+
+.icon-untitled79 {
+	width: 0.875em;
+}
+
+.icon-untitled80 {
+	width: 0.875em;
+}
+
+.icon-untitled81 {
+	width: 0.625em;
+}
+
+.icon-untitled83 {
+	width: 0.8125em;
+}
+
+.icon-untitled84 {
+	width: 0.8125em;
+}
+
+.icon-untitled85 {
+	width: 0.625em;
+}
+
+.icon-untitled86 {
+	width: 0.875em;
+}
+
+.icon-untitled87 {
+	width: 0.625em;
+}
+
+.icon-untitled88 {
+	width: 0.8125em;
+}
+
+.icon-untitled89 {
+	width: 0.8125em;
+}
+
+.icon-untitled90 {
+	width: 0.8125em;
+}
+
+.icon-untitled91 {
+	width: 0.6875em;
+}
+
+.icon-untitled92 {
+	width: 0.875em;
+}
+
+.icon-untitled93 {
+	width: 0.6875em;
+}
+
+.icon-untitled94 {
+	width: 0.9375em;
+}
+
+.icon-untitled95 {
+	width: 0.875em;
+}
+
+.icon-untitled96 {
+	width: 0.8125em;
+}
+
+.icon-untitled97 {
+	width: 0.8125em;
+}
+
+.icon-untitled98 {
+	width: 0.9375em;
+}
+
+.icon-untitled100 {
+	width: 0.875em;
+}
+
+.icon-untitled101 {
+	width: 0.9375em;
+}
+
+.icon-untitled102 {
+	width: 0.75em;
+}
+
+.icon-untitled103 {
+	width: 0.875em;
+}
+
+.icon-untitled104 {
+	width: 0.8125em;
+}
+
+.icon-untitled105 {
+	width: 0.8125em;
+}
+
+.icon-untitled106 {
+	width: 0.8125em;
+}
+
+.icon-untitled108 {
+	width: 0.8125em;
+}
+
+.icon-untitled109 {
+	width: 0.875em;
+}
+
+.icon-untitled110 {
+	width: 0.875em;
+}
+
+.icon-untitled111 {
+	width: 0.9375em;
+}
+
+.icon-untitled112 {
+	width: 0.875em;
+}
+
+.icon-untitled113 {
+	width: 0.8125em;
+}
+
+.icon-untitled114 {
+	width: 0.625em;
+}
+
+.icon-untitled115 {
+	width: 0.875em;
+}
+
+.icon-untitled116 {
+	width: 0.9375em;
+}
+
+.icon-untitled117 {
+	width: 0.8125em;
+}
+
+.icon-untitled118 {
+	width: 0.875em;
+}
+
+.icon-untitled120 {
+	width: 0.8125em;
+}
+
+.icon-untitled122 {
+	width: 0.875em;
+}
+
+.icon-untitled123 {
+	width: 0.875em;
+}
+
+.icon-untitled124 {
+	width: 0.9375em;
+}
+
+.icon-untitled125 {
+	width: 0.875em;
+}
+
+.icon-untitled126 {
+	width: 0.9375em;
+}
+
+.icon-untitled127 {
+	width: 0.875em;
+}
+
+.icon-untitled128 {
+	width: 0.8125em;
+}
+
+.icon-untitled129 {
+	width: 0.375em;
+}
+
+.icon-untitled130 {
+	width: 0.875em;
+}
+
+.icon-untitled131 {
+	width: 0.375em;
+}
+
+.icon-untitled132 {
+	width: 0.875em;
+}
+
+.icon-untitled133 {
+	width: 0.25em;
+}
+
+.icon-untitled134 {
+	width: 0.875em;
+}
+
+.icon-untitled135 {
+	width: 0.25em;
+}
+
+.icon-untitled136 {
+	width: 0.875em;
+}
+
+.icon-untitled137 {
+	width: 0.375em;
+}
+
+.icon-untitled138 {
+	width: 0.875em;
+}
+
+.icon-untitled141 {
+	width: 0.91796875em;
+}
+
+.icon-untitled142 {
+	width: 0.50390625em;
+}
+
+.icon-untitled143 {
+	width: 0.689453125em;
+}
+
+.icon-untitled144 {
+	width: 0.853515625em;
+}
+
+.icon-untitled145 {
+	width: 0.857421875em;
+}
+
+.icon-untitled146 {
+	width: 0.72265625em;
+}
+
+.icon-untitled147 {
+	width: 0.88671875em;
+}
+
+.icon-untitled148 {
+	width: 0.884765625em;
+}
+
+.icon-untitled149 {
+	width: 0.787109375em;
+}
+
+.icon-untitled150 {
+	width: 0.8203125em;
+}
+
+.icon-untitled151 {
+	width: 0.984375em;
+}
+
+.icon-untitled152 {
+	width: 0.912109375em;
+}
+
+.icon-untitled153 {
+	width: 0.8203125em;
+}
+
+.icon-untitled154 {
+	width: 0.8203125em;
+}
+
+.icon-untitled155 {
+	width: 0.841796875em;
+}
+
+.icon-untitled156 {
+	width: 0.857421875em;
+}
+
+.icon-untitled157 {
+	width: 0.857421875em;
+}
+
+.icon-untitled158 {
+	width: 0.787109375em;
+}
+
+.icon-untitled159 {
+	width: 0.787109375em;
+}
+
+.icon-untitled160 {
+	width: 0.759765625em;
+}
+
+.icon-untitled161 {
+	width: 0.58984375em;
+}
+
+.icon-untitled162 {
+	width: 0.853515625em;
+}
+
+.icon-untitled163 {
+	width: 0.8203125em;
+}
+
+.icon-untitled164 {
+	width: 0.458984375em;
+}
+
+.icon-untitled165 {
+	width: 0.91796875em;
+}
+
+.icon-untitled166 {
+	width: 0.8203125em;
+}
+
+.icon-untitled167 {
+	width: 0.8203125em;
+}
+
+.icon-untitled168 {
+	width: 0.814453125em;
+}
+
+.icon-untitled169 {
+	width: 0.8203125em;
+}
+
+.icon-untitled170 {
+	width: 0.8515625em;
+}

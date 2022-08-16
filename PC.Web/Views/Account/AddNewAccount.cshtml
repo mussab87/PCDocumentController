@@ -1,0 +1,137 @@
+﻿
+@model PC.Services.DL.ViewModels.AccountViewModel
+@{
+    ViewBag.Title = "AccountForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "إضافة مستخدم";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>إضافة مستخدم جديد</h2>
+    </div>
+    @*@if (Model.ErrorMessage != "")
+        {
+            <div class="alert alert-danger">
+
+
+                @Model.ErrorMessage
+
+
+            </div>
+        }*@
+
+    <div class="panel-body">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @using (Html.BeginForm("AddNewAccount", "Account"))
+        {
+            <div class="form-group col-md-6">
+                <label asp-for="Username" class="col-md-6"></label>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control col-md-6", @onchange = "LoadUserInfo()" })
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+
+            <hr />
+            <fieldset class="col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="col-md-6" asp-for="Password"> </label>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control col-md-6" })
+                    <div class="col-md-12">
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-md-6" asp-for="ConfirmPassword"> </label>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control col-md-6" })
+                    <div class="col-md-12">
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                    </div>
+                </div>
+            </fieldset>
+
+            @*@Html.HiddenFor(m => m.Id)*@
+            @Html.AntiForgeryToken()
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary">حفظ</button>
+            </div>
+        }
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>صلاحيات الحساب</h2>
+        </div>
+        <div class="panel-body">
+
+            @foreach (var role in Model.Roles)
+            {
+                <p class="btn btn-success btn-sm">
+                    @role.Name
+                </p>
+            }
+
+        </div>
+    </div>
+
+</div>
+@*@section scripts
+{*@
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script src="/Scripts/moment-hijri/moment-hijri.js"></script>
+
+    <script>
+        function LoadUserInfo() {
+            var str = $("#Username").val();
+            $.ajax({
+                url: "/Account/Search?username=" + str,
+                method: "GET"
+            }).done(function (data) {
+                if (data) {
+                    $("#FirstName").val(data.FirstName);
+                    $("#FatherName").val(data.FatherName);
+                    $("#GrandFatherName").val(data.GrandFatherName);
+                    $("#LastName").val(data.LastName);
+                    $("#Cin").val(data.Cin);
+                    $("#GradeId").val(data.GradeId);
+                    $("#ForceId").val(data.ForceId);
+                    $("#DivisionId").val(data.DivisionId);
+                    $("#TrainingLocationId").val(data.TrainingLocationId);
+                } else {
+                    $("#FirstName").val("");
+                    $("#FatherName").val("");
+                    $("#GrandFatherName").val("");
+                    $("#LastName").val("");
+                    $("#Cin").val("");
+                    $("#GradeId").val(0);
+                    $("#ForceId").val(0);
+                    $("#DivisionId").val(0);
+                    $("#TrainingLocationId").val(0);
+
+                }
+
+            });
+        }
+
+        $(function () {
+            var calendar = $.calendars.instance('ummalqura', 'ar');
+            $('.date').calendarsPicker({ calendar: calendar });
+        });
+        $('.cert').select2();
+        $('.divis').select2();
+        $('.forc').select2();
+        $('.depart').select2();
+        $('.area').select2();
+        $('.Spec').select2();
+        $('.Grade').select2();
+        $('.trainin').select2();
+
+
+    </script>
+
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+

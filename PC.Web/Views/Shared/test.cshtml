@@ -1,0 +1,374 @@
+﻿@model PC.Services.DL.ViewModels.EditRoleViewModel
+
+@{
+    ViewBag.Title = "تعديل صلاحية";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <br />
+            <br />
+        </div>
+
+        <div class="row">
+            <ul>
+                <li class="step show" id="step-1">
+                    <div class="bar">
+                        <span class="number">1</span>
+                        <h3>Update Role</h3>
+                        <div class="status"></div>
+                    </div>
+
+                    <div class="box">
+                        <div class="field-holder">
+
+                            <input type="hidden" id="txtID" name="txtID" />
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for=Id>Role Id</label>
+                                    
+                                    <input type="text" asp-for=Id class="form-control input-lg" disabled="disabled" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for=RoleName>Role Name</label>
+                                    <input type="text" asp-for=RoleName class="form-control input-lg"  maxlength="50" required="required" />
+                                </div>
+                            </div>
+
+                             <%-- First Name Ar + Last Name Ar --%>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>First Name (AR)</label>
+                                    <i class="red">*</i>
+                                    <input type="text" id="txtFirstNameAr" class="form-control input-lg" placeholder="First Name (AR)" name="txtFirstNameAr" maxlength="50" readonly />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Last Name (AR)</label>
+                                    <i class="red">*</i>
+                                    <input type="text" id="txtLastNameAr" class="form-control input-lg" placeholder="Last Name (AR)" name="txtLastNameAr" maxlength="50" readonly />
+                                </div>
+                            </div>
+
+                             <%-- Email + Username --%>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Email</label>
+                                    <i class="red">*</i>
+                                    <input type="text" id="txtEmail" class="form-control input-lg" placeholder="Email Address" name="txtEmail" maxlength="50" onfocusout="checkEmailExisttxt();" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Username</label>
+                                    <i class="red">*</i>
+                                    <input type="text" id="txtUsername" class="form-control input-lg" placeholder="Username" name="txtUsername" maxlength="50" onfocusout="chUsernameExist();" />
+                                </div>
+                            </div>
+
+                            <%-- Is External --%>
+                            <div class="row">
+                                 <div class="form-group col-md-6">
+                                    <label>Is External</label>
+                                    <br />
+                                    <label>Yes</label>
+                                    <i class="red">*</i>
+                                    <input type="radio" name="cbIsExternal" id="cbIsExternalYes" value="1" />
+                                    <label>No</label>
+                                    <i class="red">*</i>
+                                    <input type="radio" name="cbIsExternal" id="cbIsExternalNo" value="0" />
+                                </div>
+                            </div>
+
+                           <%-- HPassword + Salt --%>
+                            <div class="row" id="externaldiv" hidden="hidden">
+                                <div class="form-group col-md-6">
+                                    <label>HPassword</label>
+                                    <i class="red">*</i>
+                                    <input type="text" id="txtHPassword" class="form-control input-lg" placeholder="HPassword" name="txtHPassword"  />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Salt</label>
+                                     <i class="red">*</i>
+                                    <input type="text" id="txtSalt" class="form-control input-lg" placeholder="Salt" name="txtSalt" />
+                                </div>
+                            </div>
+
+                            <%-- UserStatus + DefaultPage --%>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+
+                                    <label>User Status</label>
+                                    <i class="red">*</i>
+                                     <br />
+                                    <select name="ddUserStatus" id="ddUserStatus" class="form-control input-lg required" required="required">
+
+                    <option value="0"></option>
+                    <option value="<%=(int) MC.Model.Enum.UserStatus.Active %>">Active</option>
+                    <option value="<%=(int) MC.Model.Enum.UserStatus.Inactive %>">Inactive</option>
+                    <option value="<%=(int) MC.Model.Enum.UserStatus.Blocked %>">Blocked</option>
+
+
+                </select>
+ 
+                                </div>
+
+                                 <div class="form-group col-md-6" id="defaultPageDiv" hidden="hidden">
+                                    <label>Default Page</label>
+                                   
+                                    <input type="text" id="txtDefaultPage" class="form-control input-lg" placeholder="Default Page" name="txtDefaultPage"  />
+                                </div>
+
+                                 <div class="form-group col-md-6" hidden="hidden">
+                                    <label>User Profile Picture</label>
+                                    
+                                    <input type="file" id="txtProfilePicBase64" class="form-control input-lg" name="ProfilePicBase64" />
+                                </div>
+                                
+                            </div>
+
+                             <%-- Specialty + PersonnelId --%>
+                            <div class="row" id="SpecPersonnelDiv" hidden="hidden">
+                                
+                                <div class="form-group col-md-6">
+                                    <label>Specialty</label>
+                                   
+                                    <input type="text" id="txtSpecialty" class="form-control input-lg" placeholder="Specialty" name="txtSpecialty"  />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label>Personnel Id</label>
+                                    <i class="red">*</i>
+                                    <input type="text" id="txtPersonnelId" class="form-control input-lg" placeholder="Personnel Id" name="txtPersonnelId" />
+                                </div>
+                            </div>
+
+                             <%-- VSeeUsername + VSeePassword --%>
+                            <div class="row" id="VseeDiv" hidden="hidden">
+                                <div class="form-group col-md-6">
+                                    <label>VSee Username</label>
+                                   
+                                    <input type="text" id="txtVSeeUsername" class="form-control input-lg" placeholder="VSee Username" name="txtVSeeUsername"  />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>VSee Password</label>
+                                    
+                                    <input type="text" id="txtVSeePassword" class="form-control input-lg" placeholder="VSee Password" name="txtVSeePassword" />
+                                </div>
+                            </div>
+
+                             <%-- ReportToId + DoctorRecId --%>
+                            <div class="row">
+                                <div class="form-group col-md-6" id="reportDiv" hidden="hidden">
+                                    <label>Report To Id</label>
+                                   <i class="red">*</i>
+                                    <input type="text" id="txtReportToId" class="form-control input-lg" name="txtReportToId" oninput="numberOnly(this.id);" maxlength="10"  />
+                                </div>
+                                <div class="form-group col-md-6" id="DocRecDiv" hidden="hidden">
+                                    <label>Doctor Rec Id</label>
+                                    
+                                    <input type="text" id="txtDoctorRecId" class="form-control input-lg" name="txtDoctorRecId" oninput="numberOnly(this.id);" maxlength="10" />
+                                </div>
+                            </div>
+
+                             <%-- Mobile --%>
+                            <div class="row" hidden="hidden">
+                                <div class="form-group col-md-6">
+                                    <label>Mobile Number</label>
+                                   
+                                    <input type="text" id="txtMobile" class="form-control input-lg" name="txtMobile" value=""  />
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <br />
+                <br />
+
+                 <%-- User Role --%>
+                <li class="step show" id="step-2">
+                    <div class="bar">
+                        <span class="number">2</span>
+                        <h3>Add User Role</h3>
+                        <div class="status"></div>
+                    </div>
+
+                    <div class="box">
+                        <div class="field-holder">
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <label>User Role</label>
+                                    <i class="red">*</i>
+                                    <select name="ddUsersRoles" id="ddUsersRoles" class="form-control input-lg required" required="required" multiple>
+
+                    <option value="0"></option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.Administrator %>">Administrator</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.Antenatal %>">Antenatal</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.AntenatalCoordinator %>">Antenatal Coordinator</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.AntenatalDoctor %>">Antenatal Doctor</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.AntenatalNurse %>">Antenatal Nurse</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.CallCentreAgent %>">Call Centre Agent</option>
+
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.CorporateCreator %>">Corporate Creator</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.CorporateUpdater %>">Corporate Updater</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.EncounterOpener %>">Encounter Opener</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HealthAssessment %>">Health Assessment</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HealthLoungeAdmin %>">Health Lounge Admin</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeLabCreator %>">Home Lab Creator</option>
+
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeLabTech %>">Home Lab Tech</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeLabUpdater %>">Home Lab Updater</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeVacCreator %>">Home Vac Creator</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeVacUpdater %>">Home Vac Updater</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeVisitCreator %>">Home Visit Creator</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HomeVisitUpdater %>">Home Visit Updater</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HYEmployee %>">HY Employee</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.HYHRManager %>">HY HR Manager</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.InPatientCalendar %>">InPatient Calendar</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.LabTeam %>">Lab Team</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.LoyaltyManagement %>">Loyalty Management</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MessageSender %>">Message Sender</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MessageSenderBulk %>">Message Sender Bulk</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MessageSenderCustomBulk %>">Message Sender Custom Bulk</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MessageTemplater %>">Message Templater</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MRNValidator %>">MRN Validator</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyClinicDoctor %>">MyClinic Doctor</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyClinicNurse %>">MyClinic Nurse</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyDMPCalendar %>">MyDMP Calendar</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MYFiEditor %>">MYFiEditor</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MYFiSender %>">MYFiSender</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyJourneySurvey %>">MyJourney Survey</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyOpsReporter %>">MyOps Reporter</option>
+
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyRetailFulfiller %>">MyRetail Fulfiller</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.MyRetailRequester %>">MyRetail Requester</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.NPSSurveySender %>">NPSSurvey Sender</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.PerformanceAnalyzer %>">Performance Analyzer</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.Physio %>">Physio</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.PMOAuthor %>">PMO Author</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.PMOViewer %>">PMO Viewer</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.PreAuthDoctor %>">Pre Auth Doctor</option>
+
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.PreAuthRequester %>">Pre Auth Requester</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.PUBLIC %>">PUBLIC</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.QBackOffice %>">QBackOffice</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.QFrontOffice %>">QFrontOffice</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.QFrontOfficePhle %>">QFrontOfficePhle</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.QRealtimeDash %>">QRealtimeDash</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.QReporter %>">QReporter</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.Telemedicine %>">Telemedicine</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.FamilyMedicineDoctor %>">Family Medicine</option>
+                    <option value="<%=(int) MC.Model.Enum.MYPARole.ServiceCoordinator %>">Service Coordinator</option>
+
+
+
+                </select>
+                                </div>
+                            </div>
+
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="btn-group pull-right row" id="divSaveRecordButton">
+                <div class="form-group col-md-12" style="padding-right: 50px; padding-bottom: 20px">
+                    <button class="btn btn-primary m-b-md" type="button" id="btnSave" name="btnSave" title="Save" value="" onclick="btnRecordSaveClick();">
+                        <span><i class="fa fa-floppy-o"></i>&nbsp;Save</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="btn-group pull-left row" id="divBackRecordButton">
+                <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
+                  <a href="MYCUserWorklist.aspx" class="btn btn-primary m-b-md" type="button" id="btnBack" name="btnBack" title="Back">
+                      <span><i class="fa fa-arrow-left"></i>&nbsp;Back</span>
+                  </a>  
+                        
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Vendor scripts -->
+    <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="vendor/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="vendor/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="vendor/highcharts/js/highcharts.js"></script>
+    <script src="vendor/datatables/dt/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dt/dataTables.bootstrap.min.js"></script>
+    <script src="vendor/datatables/dt/dataTables.buttons.min.js"></script>
+    <script src="vendor/datatables/dt/buttons.flash.min.js"></script>
+    <script src="vendor/datatables/dt/jszip.min.js"></script>
+    <script src="vendor/datatables/dt/buttons.html5.min.js"></script>
+
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="vendor/sweetalert/lib/sweetalert2.min.js"></script>
+    <script src="scripts/moment-with-locales.js"></script>
+    <script src="scripts/Moment/datetime-moment.js"></script>
+    <script src="vendor/select2-3.5.2/select2.min.js"></script>
+    <script src="scripts/general.js"></script>
+
+    <!-- App scripts -->
+    <script src="scripts/main.js"></script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>تعديل صلاحية </h2>
+    </div>
+   
+
+    <div class="panel-body">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @using (Html.BeginForm("EditRole", "Admin"))
+        {
+
+            <div class="form-group col-md-6">
+                <label asp-for="Id" class="col-md-6"></label>
+                
+                    <input asp-for="Id" disabled class="form-control col-md-6">
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="RoleName" class="col-md-6"></label>
+                <input asp-for="RoleName" type="text" class="form-control col-md-6">
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+
+            </div>
+
+            <hr />
+            @*@Html.HiddenFor(m => m.Id)*@
+            @Html.AntiForgeryToken()
+    <div class="form-group col-md-12">
+        <button type="submit" class="btn btn-primary">حفظ</button>
+        <a asp-action="ListRoles" class="btn btn-default" style="width:auto">رجوع</a>
+    </div>
+        }
+    </div>
+</div>
+
+
+
+<!-- Vendor scripts -->
+    <script src="~/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- App scripts -->
+    <script src="~/scripts/main.js"></script>
+    
+    <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>   
+
+
+

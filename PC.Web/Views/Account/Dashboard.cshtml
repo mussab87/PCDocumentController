@@ -1,0 +1,124 @@
+﻿
+@model PC.Services.DL.ViewModels.DashboardViewModel
+@{
+    ViewBag.Title = "لوحة التحكم";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>
+            Dashboard
+        </h2>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-3">
+            <div class=" panel-default">
+                <div class="panel-heading">
+                    <strong>Users List</strong>
+                </div>
+                <div class="panel-body text-center">
+                    <div class="huge">
+                        <i class="glyphicon glyphicon-user"></i> @Model.CountAccount
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="col-md-1">
+                        <a href="/account/UsersList" class="btn btn-default btn-sm pull-right">إدارة</a>
+                    </span>
+                    <span class="col-md-2"></span>
+                    <span class="col-md-3 pull-left">
+                        <a href="/account/AddNewAccount" class="btn btn-default btn-sm pull-left">إضافة</a>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class=" panel-default">
+                <div class="panel-heading">
+                    <strong>Users Roles</strong>
+                </div>
+                <div class="panel-body text-center">
+                    <div class="huge">
+                        <i class="glyphicon glyphicon-lock"></i> @Model.CountRoles
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="col-md-1">
+                        <a href="/Roles/RolesList" class="btn btn-default btn-sm pull-right">إدارة</a>
+                    </span>
+                    <span class="col-md-2"></span>
+                    <span class="col-md-3 pull-left">
+                        <a href="/Roles/Create" class="btn btn-default btn-sm pull-left">إضافة</a>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="col-md-3">
+            <div class=" panel-default">
+                <div class="panel-heading">
+                    <strong>@Resource.RolesPermissions</strong>
+                </div>
+                <div class="panel-body text-center">
+                    <div class="huge">
+                        <i class="glyphicon glyphicon-file"></i>@Model.CountPermissions
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="col-md-1">
+                        <a href="/Permissions/Index" class="btn btn-default btn-sm pull-right">إدارة</a>
+                    </span>
+                    <span class="col-md-2"></span>
+                    <span class="col-md-3 pull-left">
+                        <a href="/Permissions/GetAllControllerActionsUpdated" class="btn btn-default btn-sm pull-left">تحديث الصلاحيات</a>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class=" panel-default">
+                <div class="panel-heading">
+                    <strong>@Resource.WebApi</strong>
+                </div>
+                <div class="panel-body text-center">
+                    <div class="form-group">
+                        <label class="col-md-12">رابط نظام الترشيح :</label>
+                        <label class="col-md-12">@Model.Settings.WebApiConnection</label>
+                    </div>
+                    <hr />
+                    <div class="form-group col-md-12">
+                        <a href="/settings/Index" class="btn btn-primary">إدارة الإعدادات</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class=" panel-default">
+                <div class="panel-heading">
+                    <strong>تحديث بيانات النظام</strong>
+                </div>
+                <div class="panel-body text-center">
+                    <div class="huge">
+                        <i class="glyphicon glyphicon-file"></i>@Model.CountPermissions
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <span class="col-md-1">
+                        <a href="/Courses/UpdateSystemData" class="btn btn-default btn-sm pull-right">تحديث</a>
+                    </span>
+                    <span class="col-md-2"></span>
+                    <span class="col-md-3 pull-left">
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>

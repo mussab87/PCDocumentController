@@ -1,0 +1,291 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+html {
+    height: 100%;
+}
+body {
+    line-height: 1;
+    background: #dfe2e4;
+    font-family: Arial;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, 
+blockquote:after,
+q:before, 
+q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.container {
+    width: 767px;
+}
+/*
+ * Radio button
+ */
+input[type=radio]:not(old) {
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    display: inline;
+    width: 0;
+}
+input[type=radio]:not(old) + label {
+    display: block !important;
+    line-height: 1.5em;
+    font-weight: normal !important;
+    margin: -8px 0 0 !important;
+}
+input[type=radio]:not(old) + label > span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 1px solid #00294e;
+    border-radius: 30px;
+    background: #ffffff;
+    vertical-align: bottom;
+}
+input[type=radio]:not(old):checked + label > span{
+    background: #fff;
+}
+input[type=radio]:not(old):checked + label > span > span {
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    border-radius: 30px;
+    background: #00294e;
+}
+.form-body span {
+    display: block;
+    color: #00294e;
+    font-size: 14px;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    line-height: 20px;
+}
+p span {
+    display: inline-block;
+    color: #00294e;
+    font-size: 14px;
+    margin: 20px 10px 10px;
+    font-weight: bold;
+    line-height: 20px;
+}
+/*
+ * Logo
+ */
+#logo {
+    width: 100%;
+    float: left;
+}
+#logo img {
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+}
+/*
+ * Form
+ */
+#form_results {
+    display: none;
+    margin: 60px 0 0;
+    width: 100%;
+    float: left;
+}
+#form_results p {
+    text-align: center;
+    font-size: 24px;
+    color: #00294e;
+}
+#page-form {
+    width: 100%;
+    float: left;
+    margin: 20px 0 0;
+}
+#page-form .form-start {
+    width: 100%;
+    float: left;
+    background: #b0bbce;
+    border: 1px solid #797d83;
+}
+#page-form .form-start h2 {
+    background: #00294e;
+    display: inline-block;
+    color: #fff;
+    padding: 15px 80px 15px 30px;
+    position: relative;
+    min-width: 300px;
+}
+#page-form .form-start h2:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 46px solid #00294e;
+    border-right: 40px solid transparent;
+    top: 0;
+    right: -40px;
+}
+#page-form .form-start h3 {
+    font-size: 22px;
+    color: #00294e;
+    font-weight: bold;
+    margin: 25px 0 5px;
+}
+#page-form .form-start label {
+    display: block;
+    color: #00294e;
+    font-size: 14px;
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+#page-form form {
+    width: 100%;
+    float: left;
+}
+.form-body {
+    margin: 10px 15px 25px;
+}
+#page-form form .row {
+    margin: 0 0 10px;
+}
+#page-form .form-start input[type="text"],
+#page-form .form-start input[type="date"] {
+    background: #fff;
+    border: none;
+    color: #000000;
+    height: 44px;
+    font-size: 14px;
+    padding: 6px 15px;
+    outline: none;
+    width: 100%;
+}
+/*
+ * Call to action
+ */
+.call-to-action {}
+.call-to-action .button-action {
+    float: right;
+    margin: 0 0 50px;
+}
+.call-to-action .button-action div {
+    display: inline-block;
+    background: #00294e;
+    border: none;
+    padding: 10px 25px;
+    color: #fff;
+    cursor: pointer;
+}
+#language {
+    position: absolute;
+    right: 104px;
+    top: 23px;
+}
+#language p {
+    font-size: 14px;
+    margin: 0 0 6px;
+}
+#language span {
+    background: #00294e;
+    color: #fff;
+    font-size: 12px;
+    display: inline-block;
+    padding: 6px 12px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.arb_v #page-form .form-start h2:after {
+    border-left: 40px solid transparent;
+    left: -40px;
+    border-right: none;
+    right: inherit;
+}
+.arb_v #page-form .form-start h2 {
+    padding: 15px 30px 15px 80px;
+}
+.arb_v .call-to-action .button-action {
+    float: left;
+}
+@media (max-width: 767px) {
+    #logo img {
+        width: 100%;
+    }
+    .container {
+        width: 100%;
+    }
+    #language {
+        position: relative;
+        right: inherit;
+        top: inherit;
+        margin: 10px 0 5px;
+        text-align: center;
+    }
+}
+
+/*Loader*/
+.overly {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.45);
+    z-index: 9999999;
+    display: none;
+}
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    z-index: 9999999;
+    transform: translate(-50%, -40%);
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

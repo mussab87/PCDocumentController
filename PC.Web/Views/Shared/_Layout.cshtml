@@ -1,0 +1,35 @@
+﻿
+<html lang="en">
+<head>
+    <partial name="_HeaderPartial" />
+    
+</head>
+<body>
+  
+  
+  <partial name="_bodyHeader" />
+
+    <partial name="_Menu" />
+
+    <div id="wrapper">
+        <div class="row">
+        <div class="col-md-12" style="padding-left: 20px">
+           @* <h2>Users List</h2>*@
+            <p class="breadcrumbnew">Home / Administrator / <span class="text-muted"> @ViewBag.Title </span> </p>
+        </div>
+
+    </div>
+      @RenderBody()
+
+        <!-- Footer-->
+        <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - @config["AppSetting:ApplicationFooter"]
+        </div>
+    </footer>
+    </div>
+    <partial name="_LogoutModal" />
+    <partial name="_ScriptExtenstions" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

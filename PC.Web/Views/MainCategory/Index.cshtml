@@ -1,0 +1,125 @@
+﻿@model IEnumerable<PC.Services.Core.Models.MainCategory>
+@{
+    ViewBag.Title = "Main Category List";
+}
+
+<div class="row">
+    <div class="form-group col-md-4">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a asp-action="Create" asp-controller="MainCategory" class="btn btn-primary btn-lg btn-block runbtn" style="width: 250px" type="button" id="btnGetPatient" name="btnGetPatient">
+            <i class="glyphicon glyphicon-tasks">
+            </i>&nbsp;&nbsp;&nbsp;Create Main Category
+        </a>
+    </div>
+
+    <div class="col-md-12">
+
+        <div id="PlaceHolderHereUser"></div>
+
+        <div class="row" id="divResults">
+            <div class="resultTable" style="padding: 20px; padding-bottom: 50px">
+                @if (Model.Any())
+                {
+                    <table width="100%" class="table table-striped table-bordered media-table" id="tbl" name="tbl">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th hidden>
+                                    Id
+                                </th>
+                                <th>
+                                    Main Category Name
+                                </th>
+                                <th>
+                                    Created By
+                                </th>
+                                <th>
+                                    Created Date
+                                </th>
+                                <th>Updated By</th>
+                                <th>Updated Date</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int No = 0;
+                            }
+                            @foreach (var category in Model)
+                            {
+                                No = No + 1;
+                                <tr>
+                                    <td> @No </td>
+                                    <td hidden>@category.MainCategoryId</td>
+                                    <td>
+                                        @category.Name
+                                    </td>
+                                    <td>
+                                        @category.CreatedBy
+                                    </td>
+                                    <td>
+                                        @category.CreatedDateTime
+                                    </td>
+                                    <td>
+                                        @if (category.UpdatedBy != null)
+                                        {
+                                            @category.UpdatedBy
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @if (category.UpdatedDateTime != null)
+                                        {
+                                            @category.UpdatedDateTime
+                                        }
+
+                                    </td>
+                                    <td>
+
+                                        <form method="post" asp-action="Delete" asp-route-id="@category.MainCategoryId">
+
+                                            <a asp-action="Edit"
+                                       asp-route-id="@category.MainCategoryId" class="btn btn-info text-white" style="cursor:pointer">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+
+
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delet? : @category.Name')">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </form>
+
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p><h4 style="text-align:center">No Data to Display</h4></p>
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Vendor scripts -->
+<script src="~/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- App scripts -->
+<script src="~/scripts/main.js"></script>
+
+<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
+
+

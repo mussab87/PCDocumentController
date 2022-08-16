@@ -1,0 +1,155 @@
+﻿html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+strong {
+    font-weight: bold;
+}
+html {
+    height: 100%;
+}
+body {
+    line-height: 1;
+    font-family: Arial;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.container {
+    width: 810px;
+}
+.page {
+    background-color: #e4e6e8;
+    padding: 0 0 40px;
+}
+#page-2 {
+    width: 700px;
+    margin: 0 auto;
+    height:1015px;
+}
+.logo {}
+.logo img {
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+}
+.data {
+    width: 100%;
+    float: left;
+    background: #fff;
+}
+.data img {
+    margin: 0 auto;
+    display: block;
+}
+.row-1 {
+    padding: 80px 0 20px;
+    width: 100%;
+    float: left;
+    background: #fff;
+}
+.row-2 {
+    padding: 30px 0 20px;
+    width: 100%;
+    float: left;
+    background: #fff;
+}
+.divider {
+    border-right: 4px solid #ccc;
+    height: 100px;
+}
+.row-2 h3 {
+    font-size: 30px;
+    text-align: center;
+}
+.row-1 span {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin: 10px 0 0;
+    line-height: 16px;
+}
+.row-1 span.marker-1 {
+    position: absolute;
+    top: -53px;
+    left: 62px;
+}
+.row-1 span.marker-2 {
+    position: absolute;
+    top: -53px;
+    left: 176px;
+}
+.row-1 span.marker-3 {
+    position: absolute;
+    top: -53px;
+    left: 288px;
+}
+.row-1 span.marker-4 {
+    position: absolute;
+    top: -53px;
+    right: 62px;
+}
+
+
+.row-2 p {
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 15px 0;
+}
+.row-2 ul {margin: 10px 0 10px 30px;}
+.row-2 ul li {
+    list-style: disc;
+    font-family: Arial;
+    font-size: 14px; 
+    line-height: 20px;
+    margin: 0 0 10px;
+}
+.row-2 h2 {
+    font-size: 20px;
+    margin: 0 0 12px;
+    font-weight: bold;
+}
+
+@media print {
+    .page {
+        background-color: #e4e6e8 !important;
+        -webkit-print-color-adjust: exact;
+    }
+    .row-1, .row-2, .row-3, .row-4 {
+        background-color: #fff !important;
+    }
+}

@@ -1,0 +1,30 @@
+﻿
+<html lang="en">
+<head>
+    <partial name="_HeaderPartial" />
+    
+</head>
+<body>
+    <div id="header">
+        <div class="color-line">
+        </div>
+        <div id="logo" class="light-version">
+    	    <img src="~/images/@config["AppSetting:ApplicationLogo"]" height="45px" alt="Document Controller">
+        </div>
+        <nav role="navigation">
+            <div class="header-link hide-menu">Welcome!</div>  
+        </nav>
+    </div>
+    
+    @RenderBody()
+        
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - @config["AppSetting:ApplicationFooter"]
+        </div>
+    </footer>
+    
+    <partial name="_ScriptExtenstions" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

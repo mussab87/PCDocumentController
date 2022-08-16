@@ -1,0 +1,115 @@
+﻿@model IEnumerable<PC.Services.DL.ViewModels.Category>
+@{
+    ViewBag.Title = "Category Header List";
+}
+
+<div class="row">
+    <div class="form-group col-md-4">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a asp-action="Create" asp-controller="CategoryHeader" class="btn btn-primary btn-lg btn-block runbtn" style="width: 300px" type="button" id="btnGetPatient" name="btnGetPatient">
+            <i class="glyphicon glyphicon-th">
+            </i>&nbsp;&nbsp;&nbsp;Add Category Header Link
+        </a>
+    </div>
+
+    <div class="col-md-12">
+
+        <div id="PlaceHolderHereUser"></div>
+
+        <div class="row" id="divResults">
+            <div class="resultTable" style="padding: 20px; padding-bottom: 50px">
+                @if (Model.Any())
+                {
+                        <table width="100%" class="table table-striped table-bordered media-table" id="tbl" name="tbl">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>
+                                        Authority Matrix
+                                    </th>
+                                    <th>
+                                        Main Category
+                                    </th>
+                                    <th>Activity</th>
+                                    <th>Details</th>
+                                    <th>Levels Number</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @{
+                                int No = 0;
+                            }
+                            @foreach (var detail in Model)
+                            {
+                                No = No + 1;
+                                        <tr>
+                                            <td> @No </td>
+                                            <td>
+                                        @if (detail.authority != null)
+                                        {
+
+                                            @detail.authority.AuthorityMatrix.Name
+
+                                        }
+                                        else
+                                        {
+                                            <text>--</text>
+                                        }
+                                            </td>
+                                            <td>
+                                        @detail.categoryHeaders.MainCategory.Name
+                                            </td>
+                                            <td>
+                                        @detail.categoryHeaders.Activity.Name
+                                            </td>
+
+                                            <td>
+                                        @detail.categoryHeaders.Details.Name
+                                            </td>
+                                            <td>@detail.categoryHeaders.LevelCount</td>
+                                            <td>
+
+                                                <form method="post" asp-controller="Details" asp-action="Delete" asp-route-id="@detail.categoryHeaders.CategoryHeaderId">
+
+                                                    <a asp-action="AddLevel"
+                                       asp-route-id="@detail.categoryHeaders.CategoryHeaderId" class="btn btn-info text-white" style="cursor:pointer">
+                                                        Add Levels @*<span class="glyphicon glyphicon-pencil"></span>*@
+                                                    </a>
+
+                                            @*<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delet? : @detail.categoryHeaders.CategoryHeaderId')">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                                </button>*@
+                                                </form>
+                                            </td>
+                                        </tr>
+                            }
+                            </tbody>
+                        </table>
+                }
+                else
+                {
+                        <p><h4 style="text-align:center">No Data to Display</h4></p>
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Vendor scripts -->
+<script src="~/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- App scripts -->
+<script src="~/scripts/main.js"></script>
+
+<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
+
+

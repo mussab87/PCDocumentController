@@ -1,0 +1,64 @@
+@section Scripts
+{
+    <script>
+            $(document).ready(function () {
+                var Message = '@TempData["Message"]';
+                if (Message == 1) {
+                    NToast(
+                        "#5060DC blur",
+                        "tl",
+                        "تم الحفظ بنجاح",
+                        true,
+                        "fa fa-save",
+                        true,
+                        100,
+                    )
+                }
+                if (Message == 2) {
+                    NToast(
+                        "#5060DC blur",
+                        "tl",
+                        "تم التحديث بنجاح",
+                        true,
+                        "fa fa-check",
+                        true,
+                        100,
+                    )
+                }
+                if (Message == 3) {
+                    NToast(
+                        "#5060DC blur",
+                        "tl",
+                        "تم الحذف بنجاح",
+                        true,
+                        "fa fa-trash",
+                        true,
+                        100,
+                    )
+                }
+                if (Message == 4) {
+                    NToast(
+                        "#5060DC blur",
+                        "tl",
+                        "لا يمكن الحذف لارتباطه في بيانات أخرى",
+                        true,
+                        "fa fa-info",
+                        true,
+                        100,
+                    )
+                }
+                if (Message == 5) {
+                    NToast(
+                        "#D74323",
+                        "tl",
+                        "حدث خطاءغير معروف يرجى التواصل مع مدير النظام",
+                        true,
+                        "fa e-fe-access-error",
+                        true,
+                        100,
+                    )
+                }
+            });
+
+    </script>
+}

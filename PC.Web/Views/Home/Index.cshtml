@@ -1,0 +1,195 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Loading</h1><img src="images/loading-bars.svg" width="64" height="64" /> </div> </div>
+
+    <div class="login-container animated zoomInUp">
+        <form id="loginForm" autocomplete="off">
+        <div class="row">
+            <div class="col-md-12">
+		        
+                <div class="text-center m-b-md">
+                     <img src="images/myops_logo.svg" alt="My Operations" height="100">		
+                    <h2>Login to your account</h2>
+                </div>
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="email" id="email" runat="server" placeholder="example@nazerclinic.com.sa" title="Please enter you username" required="" value="" name="email" class="form-control input-lg ltrInput" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" runat="server" id="password" title="Please enter your password" placeholder="******" required="" value="" name="password" class="form-control input-lg ltrInput" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" >How much is:</label>
+                            <input class="form-control input-lg ltrInput" type="text" id="a"/>
+                            <label class="control-label" >Answer:</label>
+                           <input class="form-control input-lg ltrInput" type="text" id="b"/>
+                        </div>
+                    </div>
+                    </div>
+				    <div class="panel-footer">
+                        <button type="submit" class="btn btn-info btn-lg btn-block loginbtn" runat="server"> <i class="fa fa-sign-in fa-fw"></i> Login</button>
+					</div>
+                </div>
+            </div>
+            </form>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+            </div>
+        </div>
+ 
+
+
+    <script>
+
+        $(document).ready(function () {
+            
+            localStorage.removeItem('accessToken');
+            
+            var n1 = Math.round(Math.random() * 10 + 1);
+            var n2 = Math.round(Math.random() * 10 + 1);
+            $("#a").val(n1 + " + " + n2);
+         
+               
+            var errorDialog = '<button class="btn btn-default btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-plus"></i> </button>' +
+                            '<div class="collapse" id="collapseExample"><div class="well well-lg">dummy text</div></div>';
+
+            $("#loginForm").validate({
+                rules: {
+                    email: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    }
+                },
+                submitHandler: function (form) {
+                    
+                   
+                        if (eval($("#a").val()) != $("#b").val()) {
+                            
+                            swal({
+                                title: 'Logon Failed',
+                                html: "Wrong Number Entered!",
+                                confirmButtonText: "OK",
+                                type: 'warning'
+                            });
+                            return;
+                            
+                        }
+                   
+                    var email = $.trim(($("#email").val()).toLowerCase());
+                    var password = $.trim($("#password").val());
+
+                    var userData = { 'username': email, 'password': password };
+                    $.ajax({
+                        type: "POST",
+                        url: "Login.aspx/WebAuthenticate",
+                        data: JSON.stringify(userData),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        success: function (data, status) {
+
+                            var error = '';
+
+                            if (status == "success") {
+
+                                var result = data.d;
+                                if (!$.isEmptyObject(result)) {
+
+                                    <% // Evaluate the AuthToken returned. %>
+                                    var authResult = result.AuthResult;
+                                    switch (authResult) {
+                                        case <%=(int)MC.Model.Enum.AuthResult.InvalidUsernameOrPassword %>:
+                                            error = 'Invalid Username or Password';
+                                            break;
+
+                                        case <%=(int)MC.Model.Enum.AuthResult.NoRolesAssigned %>:
+                                            error = 'There are no roles assigned to you. Please ask your administrator to assign you a role.';
+                                            break;
+
+                                        case <%=(int)MC.Model.Enum.AuthResult.Blocked %>:
+                                            error = 'Sorry this user is blocked due entering wrong password more than 3 times, Please call IT Support.';
+                                            break;
+
+                                        case <%=(int)MC.Model.Enum.AuthResult.Success %>:
+
+                                            <% // Check if there is a default page set. %>
+                                            if (result.DefaultPage != null && result.DefaultPage.length > 0) {
+                                                window.location.href = result.DefaultPage;
+                                            } else {
+                                                window.location.href = 'LandingArea.aspx';
+                                            }
+                                            break;
+
+                                        default:
+                                            error = 'Invalid logon';
+                                            break;
+                                    }
+                                }
+
+                                if (error.length > 0) {
+                                    swal({
+                                        title: 'Logon Failed',
+                                        html: error,
+                                        confirmButtonText: "OK",
+                                        type: 'warning'
+                                    });
+                                    return;
+                                }
+                            }
+                        },
+                        error: function (data, status, error) {
+                            swal({
+                                title: 'Logon Error',
+                                html: 'Sorry, an error occurred whilst trying to log you on.',
+                                confirmButtonText: "OK",
+                                type: 'error'
+                            });
+                        },
+                        failure: function (response) {
+                            swal({
+                                title: 'Logon Error',
+                                html: 'Sorry, an error occurred whilst trying to log you on.',
+                                confirmButtonText: "OK",
+                                type: 'error'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+           
+
+            $(".loginbtn").hover(
+  function () {
+      $(".loginbtn .fa").addClass('animated infinite fadeInLeft');
+  },
+  function () {
+      $(".loginbtn .fa").removeClass('animated infinite fadeInLeft');
+  });
+
+            $(".loginbtn").click(function () {
+                var $btn = $(this);
+                $btn.button('loading');
+                // simulating a timeout
+                setTimeout(function () {
+                    $btn.button('reset');
+                }, 3000);
+            });
+        });
+    </script>
+
+*@

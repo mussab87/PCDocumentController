@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+<div class="container-fluid">
+
+    <div class="row">
+        <ul>
+            <li class="step show" id="step-1">
+                <div class="bar">
+
+                    <h3>
+                        An Error occured while processing your request. The support
+                        team is notified and we are working on the fix
+                    </h3>
+                    <hr />
+                    <h5>Please contact IT Department for more information</h5>
+                    <div class="status"></div>
+                </div>
+
+                <div class="box">
+                    <hr />
+                    <h3>Exception Details:</h3>
+                    <div class="alert alert-danger">
+                        <h5>Exception Path</h5>
+                        <hr />
+                        <p>@ViewBag.ExceptionPath</p>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <h5>Exception Message</h5>
+                        <hr />
+                        <p>@ViewBag.ExceptionMessage</p>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <h5>Exception Stack Trace</h5>
+                        <hr />
+                        <p>@ViewBag.StackTrace</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<!-- Vendor scripts -->
+<script src="~/vendor/jquery/dist/jquery.min.js"></script>
+<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- App scripts -->
+<script src="~/scripts/main.js"></script>
+
+<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
