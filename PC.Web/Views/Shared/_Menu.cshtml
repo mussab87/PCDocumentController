@@ -5,169 +5,270 @@
     var userMatrix = await _userAuthorityMatrix.getUserAuthorityMatrixAsync(applicationUser);
 }
 
-<!-- Navigation -->
-<aside id="menu">
-    <div id="navigation" class="hidden-print">
-        <div class="profile-picture">
-            <a href="#">
-                <img src="~/images/profilepic_default.png" class="img-circle m-b" width="75" alt="logo" runat="server" id="lblProfilePic" />
+<div class="menu">
+    <ul class="list">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="active">
+            <a asp-action="Home" asp-controller="Home" class="toggled waves-effect waves-block">
+                <i class="material-icons">home</i>
+                <span>Home</span>
             </a>
-            <div class="stats-label text-color">
-                <span class="font-extra-bold font-uppercase" runat="server" id="lblFullName">@User.Identity.Name</span>
-            </div>
-        </div>
-        <ul class="nav" id="side-menu">
+        </li>
 
-            @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
-            {
-                @if (ViewBag.Title == "Roles List" || ViewBag.Title == "Users" || ViewBag.Title == "App Settings" || ViewBag.Title == "Job Title List")
-                {
-                    <li class=active>
-                        <a href="#">
-                            <span class="nav-label">Administration</span>
-                            <span class="fa arrow"></span>
-                        </a>
 
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="\Admin\ListUsers">Users</a>
-                            </li>
-                        </ul>
 
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="\Admin\ListRoles">System Roles</a>
-                            </li>
-                        </ul>
 
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a asp-controller="Admin" asp-action="AppSetting">System App. Settings</a>
-                            </li>
-                        </ul>
+        @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
+        {
 
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a asp-controller="JobTitle" asp-action="Index">Users Job Title</a>
-                            </li>
-                        </ul>
-                    </li>
-                }
-                else
-                {
+            <li>
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">view_list</i>
+                    <span>Administration</span>
+                </a>
+                <ul class="ml-menu">
                     <li>
-                        <a href="#">
-                            <span class="nav-label">Administration</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="\Admin\ListRoles">System Roles</a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="\Admin\ListUsers">Users</a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a asp-controller="Admin" asp-action="AppSetting">System App. Settings</a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a asp-controller="JobTitle" asp-action="Index">Users Job Title</a>
-                            </li>
-                        </ul>
-
+                        <a href="\Admin\ListUsers">Users</a>
                     </li>
-                }
+                    <li>
+                        <a href="\Admin\ListRoles">System Roles</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="AppSetting">System App. Settings</a>
+                    </li>
+                    <li>
+                        <a asp-controller="JobTitle" asp-action="Index">Users Job Title</a>
+                    </li>
+                </ul>
+            </li>
 
-            }
 
-            @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
+        }
+
+        @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
+        {
+            <li>
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">assignment</i>
+                    <span>System Setup</span>
+                </a>
+                <ul class="ml-menu">
+                    <li>
+                        <a asp-controller="AuthorityMatrix" asp-action="Index">Authority Matrix</a>
+                    </li>
+                    <li>
+                        <a asp-controller="MainCategory" asp-action="Index">Main Category</a>
+                    </li>
+                    <li>
+                        <a asp-controller="activity" asp-action="Index">Activity</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Details" asp-action="Index">Activity Details</a>
+                    </li>
+                    <li>
+                        <a asp-controller="CategoryHeader" asp-action="Index">Create Category Header</a>
+                    </li>
+                </ul>
+            </li>
+        }
+
+        @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.User))
+        {
+            if (userMatrix != null)
             {
                 <li>
-                    <a href="#">
-                        <span class="nav-label">Work Flow Setup</span>
-                        <span class="fa arrow"></span>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">widgets</i>
+                        <span>Authority Matrix</span>
                     </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a asp-controller="AuthorityMatrix" asp-action="Index">Authority Matrix</a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a asp-controller="MainCategory" asp-action="Index">Main Category</a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a asp-controller="activity" asp-action="Index">Activity</a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a asp-controller="Details" asp-action="Index">Activity Details</a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a asp-controller="CategoryHeader" asp-action="Index">Create Category Header</a>
-                        </li>
-                    </ul>
-                </li>
-            }
-
-            @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.User))
-            {
-                if (userMatrix != null)
-                {
-
-                    <li>
-                        <a href="#">
-                            <span class="nav-label">Authority Matrix</span>
-                            <span class="fa arrow"></span>
-                        </a>
+                    <ul class="ml-menu">
                         @foreach (var authority in userMatrix)
                         {
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@authority.AuthorityId">@authority.Name</a>
-                                </li>
-                            </ul>
+                            <li>
+                                <a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@authority.AuthorityId">@authority.Name</a>
+                            </li>
                         }
-
-
-
-                    </li>
-
-                }
-
-                <li>
-                    <a href="#">
-                        <span class="nav-label">User Profile</span>
-                        <span class="fa arrow"></span>
-                    </a>
-
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
-                        </li>
                     </ul>
-
-
-
-
                 </li>
             }
+        }
 
-        </ul>
+    </ul>
+</div>
+
+<!-- Footer -->
+<div class="legal">
+    <div class="copyright">
+        &copy; @DateTime.Now.Year <a href="javascript:void(0);">@config["AppSetting:ApplicationName"]</a>.
     </div>
-</aside>
+    <div class="version">
+        <b>Version: </b> 1.0.0
+    </div>
+</div>
+<!-- #Footer -->
+<!-- Navigation -->
+@*<aside id="menu">
+    <div id="navigation" class="hidden-print">
+    <div class="profile-picture">
+    <a href="#">
+    <img src="~/images/profilepic_default.png" class="img-circle m-b" width="75" alt="logo" runat="server" id="lblProfilePic" />
+    </a>
+    <div class="stats-label text-color">
+    <span class="font-extra-bold font-uppercase" runat="server" id="lblFullName">@User.Identity.Name</span>
+    </div>
+    </div>
+    <ul class="nav" id="side-menu">
+
+    @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
+    {
+    @if (ViewBag.Title == "Roles List" || ViewBag.Title == "Users" || ViewBag.Title == "App Settings" || ViewBag.Title == "Job Title List")
+    {
+    <li class=active>
+    <a href="#">
+    <span class="nav-label">Administration</span>
+    <span class="fa arrow"></span>
+    </a>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a href="\Admin\ListUsers">Users</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a href="\Admin\ListRoles">System Roles</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="Admin" asp-action="AppSetting">System App. Settings</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="JobTitle" asp-action="Index">Users Job Title</a>
+    </li>
+    </ul>
+    </li>
+    }
+    else
+    {
+    <li>
+    <a href="#">
+    <span class="nav-label">Administration</span>
+    <span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+    <li>
+    <a href="\Admin\ListRoles">System Roles</a>
+    </li>
+    </ul>
+    <ul class="nav nav-second-level">
+    <li>
+    <a href="\Admin\ListUsers">Users</a>
+    </li>
+    </ul>
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="Admin" asp-action="AppSetting">System App. Settings</a>
+    </li>
+    </ul>
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="JobTitle" asp-action="Index">Users Job Title</a>
+    </li>
+    </ul>
+
+    </li>
+    }
+
+    }
+
+    @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
+    {
+    <li>
+    <a href="#">
+    <span class="nav-label">Work Flow Setup</span>
+    <span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="AuthorityMatrix" asp-action="Index">Authority Matrix</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="MainCategory" asp-action="Index">Main Category</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="activity" asp-action="Index">Activity</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="Details" asp-action="Index">Activity Details</a>
+    </li>
+    </ul>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="CategoryHeader" asp-action="Index">Create Category Header</a>
+    </li>
+    </ul>
+    </li>
+    }
+
+    @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.User))
+    {
+    if (userMatrix != null)
+    {
+
+    <li>
+    <a href="#">
+    <span class="nav-label">Authority Matrix</span>
+    <span class="fa arrow"></span>
+    </a>
+    @foreach (var authority in userMatrix)
+    {
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@authority.AuthorityId">@authority.Name</a>
+    </li>
+    </ul>
+    }
+
+
+
+    </li>
+
+    }
+
+    <li>
+    <a href="#">
+    <span class="nav-label">User Profile</span>
+    <span class="fa arrow"></span>
+    </a>
+
+    <ul class="nav nav-second-level">
+    <li>
+    <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+    </li>
+    </ul>
+
+
+
+
+    </li>
+    }
+
+    </ul>
+    </div>
+    </aside>*@

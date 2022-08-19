@@ -13,6 +13,9 @@ namespace PC.Services.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int AuthorityId { get; set; }
+
+        [Required(ErrorMessage = "Authority Name Field Required")]
+        [Display(Name = "Authority Name")]
         public string Name { get; set; }
 
         public IList<AuthorityMatrixCategoryHeader> AuthorityMatrixCategoryHeader { get; set; }

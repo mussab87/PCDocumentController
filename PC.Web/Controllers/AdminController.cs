@@ -657,6 +657,7 @@ namespace PC.Web.Controllers
                 return View(model);
             }
 
+            TempData["Message"] = 1;
             return RedirectToAction("EditUser", "Admin", new { Id = userId });
         }
 
@@ -826,6 +827,7 @@ namespace PC.Web.Controllers
             config.AppSetting.EmpDataApiUrl = model.EmpDataApiUrl;
             config.AppSetting.EnableConfirmPolicy = model.EnableConfirmPolicy;
             config.AppSetting.EnableRightClick = model.EnableRightClick;
+            config.AppSetting.SecurityAnswer = model.SecurityAnswer;
 
             var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
             System.IO.File.WriteAllText(appSettingsPath, newJson);
@@ -851,6 +853,7 @@ namespace PC.Web.Controllers
                 model.EmpDataApiUrl = config.GetValue<string>("AppSetting:EmpDataApiUrl");
                 model.EnableConfirmPolicy = config.GetValue<string>("AppSetting:EnableConfirmPolicy");
                 model.EnableRightClick = config.GetValue<string>("AppSetting:EnableRightClick");
+                model.SecurityAnswer = config.GetValue<bool>("AppSetting:SecurityAnswer");
 
                 return model;
             }

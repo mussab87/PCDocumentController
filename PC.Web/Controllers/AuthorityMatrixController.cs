@@ -13,7 +13,7 @@ namespace PC.Web.Controllers
 {
     //Audit when save add this await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
     [Authorize(Roles = SD.Admin)]
-   //[AllowAnonymous]
+    //[AllowAnonymous]
     public class AuthorityMatrixController : BaseController
     {
         public AuthorityMatrixController(UserManager<ApplicationUser> userManager,
@@ -56,6 +56,8 @@ namespace PC.Web.Controllers
 
                 await _unitOfWork.AuthorityMatrix.AddAsync(authorityMatrix);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                TempData["Message"] = 1;
                 return RedirectToAction(nameof(Index));
             }
             return View(authorityMatrix);
@@ -98,9 +100,12 @@ namespace PC.Web.Controllers
                     var oldJobTitle = await _unitOfWork.AuthorityMatrix.GetByIdAsync(AuthorityId);
                     _context.Entry(oldJobTitle).CurrentValues.SetValues(authorityMatrix);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                    TempData["Message"] = 1;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["Message"] = 5;
                     if (!authorityMatrixExists(authorityMatrix.AuthorityId))
                     {
                         return NotFound();
@@ -112,16 +117,19 @@ namespace PC.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            TempData["Message"] = 5;
             return View(authorityMatrix);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
-        {            
+        {
             var authorityMatrix = await _unitOfWork.AuthorityMatrix.GetByIdAsync(id);
             _unitOfWork.AuthorityMatrix.Delete(authorityMatrix);
 
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            TempData["Message"] = 1;
 
             return RedirectToAction(nameof(Index));
         }

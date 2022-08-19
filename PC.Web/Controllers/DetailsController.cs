@@ -32,7 +32,7 @@ namespace PC.Web.Controllers
         public async Task<IActionResult> Index()
         {
             //var q = _context.Details.Include(a=> a.Activity).Include(b=>b.Activity.MainCategory);
-            string[] includes = { "Activity", "Activity.MainCategory" };            
+            string[] includes = { "Activity", "Activity.MainCategory" };
             var allDetails = await _unitOfWork.Details.FindAllIncludeAsync(includes);
 
             return View(allDetails);
@@ -60,10 +60,12 @@ namespace PC.Web.Controllers
                 await _unitOfWork.Details.AddAsync(model);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+                TempData["Message"] = 1;
                 return RedirectToAction(nameof(Index));
             }
 
             GetActivityList();
+            TempData["Message"] = 5;
             return View(model);
         }
 
@@ -105,15 +107,18 @@ namespace PC.Web.Controllers
                     model.UpdatedBy = LoggedInuser;
                     model.UpdatedById = LoggedInuser.Id;
                     model.UpdatedDateTime = DateTime.Now;
-                   
+
                     //old details Id
                     var olddetails = await _unitOfWork.Details.GetByIdAsync(detailsId);
 
                     _context.Entry(olddetails).CurrentValues.SetValues(model);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                    TempData["Message"] = 1;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["Message"] = 5;
                     if (!activityExists(model.ActivityId))
                     {
                         return NotFound();
@@ -126,17 +131,18 @@ namespace PC.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Activity"] = new SelectList(_unitOfWork.Activity.GetAllAsync().Result.ToList(), "ActivityId", "Name");
+            TempData["Message"] = 5;
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
-        {            
+        {
             var details = await _unitOfWork.Details.GetByIdAsync(id);
             _unitOfWork.Details.Delete(details);
 
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
-
+            TempData["Message"] = 1;
             return RedirectToAction(nameof(Index));
         }
 

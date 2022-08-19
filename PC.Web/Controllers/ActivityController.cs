@@ -14,7 +14,7 @@ namespace PC.Web.Controllers
 {
     //Audit when save add this await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
     [Authorize(Roles = SD.Admin)]
-   //[AllowAnonymous]
+    //[AllowAnonymous]
     public class ActivityController : BaseController
     {
         public ActivityController(UserManager<ApplicationUser> userManager,
@@ -33,7 +33,7 @@ namespace PC.Web.Controllers
         //[Authorize("ListRoles-AdminController")]
         public async Task<IActionResult> Index()
         {
-            string[] includes = { "MainCategory" }; 
+            string[] includes = { "MainCategory" };
             var allActivity = await _unitOfWork.Activity.FindAllIncludeAsync(includes);
             return View(allActivity);
             //return View(await _context.jobTitle.ToListAsync());
@@ -61,9 +61,13 @@ namespace PC.Web.Controllers
                 model.MainCategory = await _unitOfWork.MainCategory.GetByIdAsync(model.MainCategoryId);
                 await _unitOfWork.Activity.AddAsync(model);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                TempData["Message"] = 1;
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MainCategory"] = new SelectList(_unitOfWork.MainCategory.GetAllAsync().Result.ToList(), "MainCategoryId", "Name");
+
+            TempData["Message"] = 5;
             return View(model);
         }
 
@@ -111,9 +115,12 @@ namespace PC.Web.Controllers
 
                     _context.Entry(oldactivityCategory).CurrentValues.SetValues(model);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                    TempData["Message"] = 1;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["Message"] = 5;
                     if (!activityExists(model.ActivityId))
                     {
                         return NotFound();
@@ -126,17 +133,19 @@ namespace PC.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MainCategory"] = new SelectList(_unitOfWork.MainCategory.GetAllAsync().Result.ToList(), "MainCategoryId", "Name");
+
+            TempData["Message"] = 5;
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
-        {            
+        {
             var activity = await _unitOfWork.Activity.GetByIdAsync(id);
             _unitOfWork.Activity.Delete(activity);
 
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
-
+            TempData["Message"] = 1;
             return RedirectToAction(nameof(Index));
         }
 

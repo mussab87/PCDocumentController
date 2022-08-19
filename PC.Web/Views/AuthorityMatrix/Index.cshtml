@@ -3,124 +3,134 @@
     ViewBag.Title = "Authority Matrix List";
 }
 
-<div class="row">
-    <div class="form-group col-md-4">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a asp-action="Create" asp-controller="AuthorityMatrix" class="btn btn-primary btn-lg btn-block runbtn" style="width: 250px" type="button" id="btnGetPatient" name="btnGetPatient">
-            <i class="glyphicon glyphicon-th-list">
-            </i>&nbsp;&nbsp;&nbsp;Create Authority Matrix
-        </a>
-    </div>
+<section class="content">
+    <div id="PlaceHolderHereUser"></div>
+    <div class="container-fluid">
+        <div class="block-header">
 
-    <div class="col-md-12">
+            <a asp-action="Create" asp-controller="AuthorityMatrix" class="btn bg-primary btn-lg btn-block runbtn" style="width: 200px" type="button">
+                <i class="glyphicon glyphicon-work"></i>
+                Add New Matrix
+            </a>
+        </div>
 
-        <div id="PlaceHolderHereUser"></div>
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Authority Matrix List
+                        </h2>
 
-        <div class="row" id="divResults">
-            <div class="resultTable" style="padding: 20px; padding-bottom: 50px">
-                @if (Model.Any())
-                {
-                    <table width="100%" class="table table-striped table-bordered media-table" id="tbl" name="tbl">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Id
-                                </th>
-                                <th>
-                                    Authority Matrix Name
-                                </th>
-                                <th>
-                                    Created By
-                                </th>
-                                <th>
-                                    Created Date
-                                </th>
-                                <th>Updated By</th>
-                                <th>Updated Date</th>
-                                <th></th>
+                    </div>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var authority in Model)
+                    <div class="body">
+
+                        <div class="table-responsive">
+                            @if (Model.Any())
                             {
-                                <tr>
-                                    <td>@authority.AuthorityId</td>
-                                    <td>
-                                        @authority.Name
-                                    </td>
-                                    <td>
-                                        @authority.CreatedBy
-                                    </td>
-                                    <td>
-                                        @authority.CreatedDateTime
-                                    </td>
-                                    <td>
-                                        @if (authority.UpdatedBy != null)
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Authority Matrix Name
+                                            </th>
+                                            <th>
+                                                Created By
+                                            </th>
+                                            <th>
+                                                Created Date
+                                            </th>
+                                            <th>Updated By</th>
+                                            <th>Updated Date</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Authority Matrix Name
+                                            </th>
+                                            <th>
+                                                Created By
+                                            </th>
+                                            <th>
+                                                Created Date
+                                            </th>
+                                            <th>Updated By</th>
+                                            <th>Updated Date</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var authority in Model)
                                         {
-                                            @authority.UpdatedBy
+                                            <tr>
+                                                <td>@authority.AuthorityId</td>
+                                                <td>
+                                                    @authority.Name
+                                                </td>
+                                                <td>
+                                                    @authority.CreatedBy
+                                                </td>
+                                                <td>
+                                                    @authority.CreatedDateTime
+                                                </td>
+                                                <td>
+                                                    @if (authority.UpdatedBy != null)
+                                                    {
+                                                        @authority.UpdatedBy
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    @if (authority.UpdatedDateTime != null)
+                                                    {
+                                                        @authority.UpdatedDateTime
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    <form method="post" asp-action="Delete" asp-route-id="@authority.AuthorityId">
+
+                                                        <a asp-action="Edit"
+                                                   asp-route-id="@authority.AuthorityId" class="btn btn-info text-white" style="cursor:pointer">
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </a>
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delet? : @authority.Name')">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                         }
-
-                                    </td>
-                                    <td>
-                                        @if (authority.UpdatedDateTime != null)
-                                        {
-                                            @authority.UpdatedDateTime
-                                        }
-
-                                    </td>
-                                    <td>
-
-                                        <form method="post" asp-action="Delete" asp-route-id="@authority.AuthorityId">
-
-                                            <a asp-action="Edit"
-                                       asp-route-id="@authority.AuthorityId" class="btn btn-info text-white" style="cursor:pointer">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </a>
-
-
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delet? : @authority.Name')">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-
-                                            @* <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addUserr"
-                                                data-url="@Url.Action($"EditUsersInRole?roleId={@role.Id}")">
-                                                Add Users to Role
-                                                </button>*@
-
-
-                                        </form>
-
-
-
-                                    </td>
-                                </tr>
+                                    </tbody>
+                                </table>
                             }
-                        </tbody>
-                    </table>
-                }
-                else
-                {
-                    <p><h4 style="text-align:center">No Data to Display</h4></p>
-                }
-
+                            else
+                            {
+                                <p><h4 style="text-align:center">No Data to Display</h4></p>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- #END# Exportable Table -->
     </div>
+</section>
 
-</div>
+<!-- Jquery Core Js -->
+<script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>
 
-<!-- Vendor scripts -->
-<script src="~/vendor/jquery/dist/jquery.min.js"></script>
-<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
-<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
-
-<!-- App scripts -->
-<script src="~/scripts/main.js"></script>
-
-<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
-
-
+<!-- Custom Js -->
+<script src="~/styles/ww/js/pages/tables/jquery-datatable.js"></script>

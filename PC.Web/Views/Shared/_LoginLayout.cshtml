@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
     <partial name="_HeaderPartial" />
-    
+    @*<img src="~/images/@config["AppSetting:ApplicationLogo"]" height="45px" alt="Document Controller">*@
 </head>
-<body>
-    <div id="header">
-        <div class="color-line">
+<body class="login-page">
+    <div class="login-box">
+        <div class="logo">
+            @*<a href="javascript:void(0);">Admin<b>BSB</b></a>
+                <small>Admin BootStrap Based - Material Design</small>*@
         </div>
-        <div id="logo" class="light-version">
-    	    <img src="~/images/@config["AppSetting:ApplicationLogo"]" height="45px" alt="Document Controller">
-        </div>
-        <nav role="navigation">
-            <div class="header-link hide-menu">Welcome!</div>  
-        </nav>
+        @RenderBody()
+
+        <footer class="border-top footer text-muted" style="position: fixed;">
+            <div class="container">
+                &copy; 2022 - @config["AppSetting:ApplicationFooter"]
+            </div>
+        </footer>
     </div>
-    
-    @RenderBody()
-        
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - @config["AppSetting:ApplicationFooter"]
-        </div>
-    </footer>
-    
+
+
+
+
+
     <partial name="_ScriptExtenstions" />
     @await RenderSectionAsync("Scripts", required: false)
 </body>

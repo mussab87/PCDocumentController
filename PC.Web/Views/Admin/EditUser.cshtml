@@ -6,302 +6,259 @@
 
 
 
-<div class="container-fluid">
-
-    <div class="row">
-        <ul>
-            <form asp-action="EditUser" method="post">
-            <li class="step show" id="step-1">
-                <div class="bar">
-                    <span class="number">1</span>
-                    <h3>@Model.UserName Information</h3>
-                    <div class="status"></div>
-                </div>
-
-                <div class="box">
-                    <div class="field-holder">
-                        <div class="row">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                </div>
-                            </div>
-
-                            <div class=row>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="UserName"></label>
-                                    <input type="text" asp-for="UserName" class="form-control input-lg">
-                                    <span asp-validation-for="UserName" class="text-danger"></span>
-
-                                </div>
-
-                                <div class="form-group col-md-4">
-
-
-                                    <label asp-for="Email"></label>
-                                    <input type="text" asp-for="Email" class="form-control input-lg">
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="UserStatus"></label>
-                                    <i class="red">*</i>
-                                    <br />
-                                    <select asp-for="UserStatus" class="form-control input-lg required" required="required">
-
-                                        <option value="0"></option>
-                                        <option value="true">Active</option>
-                                        <option value="false">Inactive</option>
-
-
-                                    </select>
-                                    <span asp-validation-for="UserStatus" class="text-danger"></span>
-
-
-                                </div>
-
-                            </div>
-
-                            <div class=row>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="FirstName"></label>
-                                    <div class="input-group-prepend">
-                                        <input type="text" asp-for="FirstName" class="form-control input-lg" />
-                                    </div>
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label asp-for="LastName"></label>
-                                    <div class="input-group-prepend">
-                                        <input type="text" asp-for="LastName" class="form-control input-lg" />
-                                    </div>
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label asp-for="PhoneNumber"></label>
-                                    <div class="input-group-prepend">
-                                        <input type="text" asp-for="PhoneNumber" class="form-control input-lg" />
-                                    </div>
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class=row>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Job"></label>
-                                    <i class="red">*</i>
-                                    <br />
-                                    <select asp-for="Job" class="form-control input-lg required" asp-items="ViewBag.JobTitle" required="required">
-
-                                        <option>Select Job Title</option>
-                                    </select>
-                                    <span asp-validation-for="Job" class="text-danger"></span>
-
-
-                                </div>
-                            </div>
-                        </div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            @* <h2>TABS</h2>*@
+        </div>
+        <!-- Example Tab -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Update User Information
+                            <small>@Model.UserName</small>
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
+                    <div class="body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" data-toggle="tab">PROFILE</a></li>
+                            <li role="presentation"><a href="#profile" data-toggle="tab">ROLES</a></li>
+                            <li role="presentation"><a href="#messages" data-toggle="tab">AUTHORITY MATRIX</a></li>
+                            @*<li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>*@
+                        </ul>
 
-                    <div class="btn-group pull-right row" id="divSaveRecordButton">
-                        <div class="form-group col-md-12" style="padding-right: 50px; padding-bottom: 20px">
-                            <button class="btn btn-primary m-b-md" type="submit" title="Save" value="">
-                                <span><i class="fa fa-floppy-o"></i>&nbsp;Save</span>
-                            </button>
-                        </div>
-                    </div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
 
-                    <div class="btn-group pull-left row" id="divBackRecordButton">
-                        <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
-                            <a asp-action="ListUsers" class="btn btn-primary m-b-md" type="button" title="Back">
-                                <span><i class="fa fa-arrow-left"></i>&nbsp;Back</span>
-                            </a>
+                            <!-- PROFILE -->
+                            <div role="tabpanel" class="tab-pane fade in active" id="home">
 
-                        </div>
-                    </div>
-                </div>
-            </li>
-            </form>
-            <br />
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+                                    @* <div class="card">
+                                        <div class="header">
+                                        <h2>
+                                        User Information
+                                        </h2>
+                                        </div>
+                                        <div class="body">*@
+                                    <form asp-action="EditUser" method="post">
+                                        <div class="row clearfix">
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="UserName"></label>
+                                                    <div class="form-line">
+                                                        <input type="text" asp-for="UserName" class="form-control" placeholder="Username">
+                                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="Email"></label>
+                                                    <div class="form-line">
+                                                        <input type="text" asp-for="Email" class="form-control" placeholder="Password" />
+                                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                                    </div>
 
 
-            @* ----------User Roles------------ *@
+                                                </div>
+                                            </div>
 
-            <div id="PlaceHolderHere"></div>
-            <li class="step show" id="step-2">
-                <div class="bar">
-                    <span class="number">2</span>
-                    <h3>@Model.UserName Roles</h3>
-                    <div class="status"></div>
-                </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="UserStatus"></label>
+                                                    <div class="form-line">
+                                                        <select asp-for="UserStatus" class="form-control show-tick" data-live-search="false" required="required">
 
-                <div class="box">
-                    <div class="field-holder">
-                        <div class="row">
+                                                            <option value="0"></option>
+                                                            <option value="true">Active</option>
+                                                            <option value="false">Inactive</option>
+                                                        </select>
+                                                        <span asp-validation-for="UserStatus" class="text-danger"></span>
+                                                    </div>
 
-                            <div class="panel-body">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row clearfix">
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="FirstName"></label>
+                                                    <div class="form-line">
+                                                        <input type="text" asp-for="FirstName" class="form-control" placeholder="First Name">
+                                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="LastName"></label>
+                                                    <div class="form-line">
+                                                        <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" />
+                                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="PhoneNumber"></label>
+                                                    <div class="form-line">
+                                                        <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="PhoneNumber" />
+                                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row clearfix">
+                                            <div class="col-md-4">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for="Job"></label>
+                                                    <div class="form-line">
+                                                        <select asp-for="Job" class="form-control show-tick" data-live-search="false" asp-items="ViewBag.JobTitle" required="required">
+
+                                                            <option>Select Job Title</option>
+                                                        </select>
+                                                        <span asp-validation-for="Job" class="text-danger"></span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <hr />
+                                        <div class="row clearfix">
+                                            <div class="col-md-4">
+                                                <div class="button-demo">
+                                                    <button class="btn bg-primary waves-effect" type="submit">
+                                                        <i class="fa fa-floppy-o"></i>Save
+                                                    </button>
+                                                    <a asp-action="ListUsers" class="btn bg-warning waves-effect" type="button" title="Back">
+                                                        <span><i class="fa fa-arrow-left"></i>Back</span>
+                                                    </a>
+                                                </div>
+                                                <div asp-validation-summary="All" class="text-danger"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- End of PROFILE -->
+                            <!-- ROLES -->
+                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                <div id="PlaceHolderHere"></div>
                                 @if (Model.Roles.Any())
                                 {
-                                    foreach (var role in Model.Roles)
-                                    {
-                                        <button class="btn btn-info">
-                                            @role
-                                        </button>
-                                    }
+                                    <div class="button-demo">
+                                        @foreach (var role in Model.Roles)
+                                        {
+                                            <button type="button" class="btn bg-orange waves-effect">
+                                                @role
+                                            </button>
+                                        }
+                                    </div>
                                 }
                                 else
                                 {
                                     <h5 class="card-title">No Roles for @Model.UserName</h5>
                                 }
+                                <hr />
+                                <div class="row clearfix">
+
+                                    <div class="col-md-4">
+                                        <div class="button-demo">
+                                            <form method="post" asp-action="ManageUserRoles" asp-controller="Admin">
+                                                <button type="button" class="btn bg-primary waves-effect" data-toggle="ajax-modal" data-target="#addRole"
+                                                        data-url="@Url.Action($"ManageUserRoles/{Model.Id}")">
+                                                    Manage Roles
+                                                </button>
+
+                                                <a asp-action="ListUsers" class="btn bg-warning waves-effect" type="button" title="Back">
+                                                    <span><i class="fa fa-arrow-left"></i>Back</span>
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-
-
-                        </div>
-                    </div>
-                    <div class="btn-group pull-left row">
-                        <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
-                            <form method="post" asp-action="ManageUserRoles" asp-controller="Admin">
-                                <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addRole"
-                                        data-url="@Url.Action($"ManageUserRoles/{Model.Id}")">
-                                    <span><i class="fa fa-floppy-o"></i>&nbsp;Manage @Model.UserName Roles</span>
-                                </button>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            @* --------------------------------- *@
-
-            <br />
-            @* ----------User Permissions------------ *@
-            <div hidden="hidden">
-            <li class="step show" id="step-3" style="display: none;">
-                <div class="bar">
-                    <span class="number">3</span>
-                    <h3>@Model.UserName Actions Permissions</h3>
-                    <div class="status"></div>
-                </div>
-
-                <div class="box">
-                    <div class="field-holder">
-                        <div class="row">
-                            <div class="panel-body">
-                                    @if (Model.Claims.Any())
-                                    {
-                                        foreach (var claim in Model.Claims)
-                                        {
-                                        <p class="btn btn-info">
-                                                @claim
-                                        </p>
-                                        }
-                                    }
-                                    else
-                                    {
-                                    <h5 class="card-title">No Permissions for @Model.UserName   </h5>
-                                    }
-
-                            </div>
-
-                                @*<div class="form-group col-md-12">
-                                    <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id"
-                                    style="width:auto" class="btn btn-primary">
-                                    Manage @Model.UserName Permissions
-                                    </a>
-                                    </div>*@
-                        </div>
-                    </div>
-                    <div class="btn-group pull-left row" id="divBackRecordButton">
-                        <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
-                            <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id" class="btn btn-primary m-b-md" type="button" title="">
-                                <span><i class="fa fa-floppy-o"></i>&nbsp;Manage @Model.UserName Permissions</span>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-    </div>
-            @* --------------------------------- *@
-    <br />
-            @* ----------User Authority Matrix Permissions------------ *@
-    <li class="step show" id="step-3">
-        <div class="bar">
-            <span class="number">3</span>
-            <h3>@Model.UserName Authority Matrix Permissions</h3>
-            <div class="status"></div>
-        </div>
-
-        <div class="box">
-            <div class="field-holder">
-                <div class="row">
-                    <div class="panel-body">
+                            <!-- End of ROLES -->
+                            <!-- AUTHORITY MATRIX -->
+                            <div role="tabpanel" class="tab-pane fade" id="messages">
                                 @if (Model.UserAuthorityMatrix.Any())
                                 {
-                                    foreach (var authority in Model.UserAuthorityMatrix)
-                                    {
-                                <p class="btn btn-info">
-                                            @authority.AuthorityMatrix.Name
-                                </p>
-                                    }
+                                    <div class="button-demo">
+                                        @foreach (var authority in Model.UserAuthorityMatrix)
+                                        {
+                                            <p class="btn btn-info">
+                                                @authority.AuthorityMatrix.Name
+                                            </p>
+                                        }
+                                    </div>
                                 }
                                 else
                                 {
-                            <h5 class="card-title">No Authority Matrix Added to @Model.UserName   </h5>
+                                    <h5 class="card-title">No Authority Matrix Added to @Model.UserName   </h5>
                                 }
+                                <hr />
+                                <div class="row clearfix">
+                                    <div class="col-md-4">
+                                        <div class="button-demo">
+                                            <a asp-action="ManageUserAuthorityMatrix" asp-route-userId="@Model.Id" class="btn bg-primary m-b-md" type="button" title="">
+                                                Manage Authority Matrix
+                                            </a>
 
+                                            <a asp-action="ListUsers" class="btn bg-warning waves-effect" type="button" title="Back">
+                                                <span><i class="fa fa-arrow-left"></i>Back</span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- End of AUTHORITY MATRIX -->
+                        </div>
                     </div>
-
-                            @*<div class="form-group col-md-12">
-                                <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id"
-                                style="width:auto" class="btn btn-primary">
-                                Manage @Model.UserName Permissions
-                                </a>
-                                </div>*@
-                </div>
-            </div>
-            <div class="btn-group pull-left row" id="divBackRecordButton">
-                <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
-                    <a asp-action="ManageUserAuthorityMatrix" asp-route-userId="@Model.Id" class="btn btn-primary m-b-md" type="button" title="">
-                        <span><i class="fa fa-floppy-o"></i>&nbsp;Manage @Model.UserName Authority Matrix</span>
-                    </a>
-
                 </div>
             </div>
         </div>
-    </li>
-            @* --------------------------------- *@
-    </ul>
-
-</div>
-
-
-
-
-
-
-</div>
-
-<!-- ~/vendor scripts -->
-<script src="~/vendor/jquery/dist/jquery.min.js"></script>
-<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
-<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
-
-<!-- App scripts -->
-<script src="~/scripts/main.js"></script>
-
-<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
-
-
+        <!-- #END# Example Tab -->
+    </div>
+</section>
+<script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-
-        $('#UserStatus').select2({
-            placeholder: "Select a value",
-        });
+        //$('#UserStatus').select2({
+        //    placeholder: "Select a value",
+        //});
     });
 </script>

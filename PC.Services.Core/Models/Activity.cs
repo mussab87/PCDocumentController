@@ -13,8 +13,13 @@ namespace PC.Services.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int ActivityId { get; set; }
+
+        [Required(ErrorMessage = "ActivityName Field Required")]
+        [Display(Name = "Activity Name")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Main Category Field Required")]
+        [Display(Name = "Main Category")]
         public int MainCategoryId { get; set; }
         [ForeignKey("MainCategoryId")]
         public virtual MainCategory MainCategory { get; set; }

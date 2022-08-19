@@ -13,8 +13,12 @@ namespace PC.Services.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int DetailsId { get; set; }
-        public string Name { get; set; }
 
+        [Required(ErrorMessage = "Details Name Field Required")]
+        [Display(Name = "Details Name")]
+        public string Name { get; set; }
+        [Required(ErrorMessage = "Activity Field Required")]
+        [Display(Name = "Activity Name")]
         public int ActivityId { get; set; }
 
         [ForeignKey("ActivityId")]

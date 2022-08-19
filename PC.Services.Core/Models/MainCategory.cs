@@ -13,6 +13,9 @@ namespace PC.Services.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int MainCategoryId { get; set; }
+
+        [Required(ErrorMessage = "Main Category Name Field Required")]
+        [Display(Name = "Main Category Name")]
         public string Name { get; set; }
 
         public string CreatedById { get; set; }

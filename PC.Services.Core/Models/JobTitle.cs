@@ -13,6 +13,9 @@ namespace PC.Services.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int JobTitleId { get; set; }
+
+        [Required(ErrorMessage = "Job Title Name Field Required")]
+        [Display(Name = "Job Title Name")]
         public string JobTitleName { get; set; }
 
         public IList<UserJobTitle> UserJobTitle { get; set; }

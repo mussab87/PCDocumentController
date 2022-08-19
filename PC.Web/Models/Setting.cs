@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PC.Web.Models
 {
-public class Setting
+    public class Setting
     {
         [Required(ErrorMessage = "Required Field")]
         [Display(Name = "Max Lock User")]
@@ -67,5 +67,9 @@ public class Setting
         [Required(ErrorMessage = " Required Field ")]
         [Display(Name = "Close Right Click")]
         public string EnableRightClick { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "Enable Security Answer")]
+        public bool? SecurityAnswer { get; set; }
     }
 }

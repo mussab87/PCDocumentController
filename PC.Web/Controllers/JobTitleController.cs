@@ -13,7 +13,7 @@ namespace PC.Web.Controllers
 {
     //Audit when save add this await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
     [Authorize(Roles = SD.Admin)]
-   //[AllowAnonymous]
+    //[AllowAnonymous]
     public class JobTitleController : BaseController
     {
         public JobTitleController(UserManager<ApplicationUser> userManager,
@@ -57,6 +57,8 @@ namespace PC.Web.Controllers
                 //_context.Add(jobTitle);
                 await _unitOfWork.JobTitle.AddAsync(jobTitle);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                TempData["Message"] = 1;
                 return RedirectToAction(nameof(Index));
             }
             return View(jobTitle);
@@ -102,9 +104,12 @@ namespace PC.Web.Controllers
                     var oldJobTitle = await _unitOfWork.JobTitle.GetByIdAsync(JobTitleId);
                     _context.Entry(oldJobTitle).CurrentValues.SetValues(jobTitle);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                    TempData["Message"] = 1;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["Message"] = 5;
                     if (!JobTitleExists(jobTitle.JobTitleId))
                     {
                         return NotFound();
@@ -116,6 +121,7 @@ namespace PC.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            TempData["Message"] = 5;
             return View(jobTitle);
         }
 
@@ -130,6 +136,7 @@ namespace PC.Web.Controllers
             //_context.jobTitle.Remove(jobTitle);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+            TempData["Message"] = 1;
             return RedirectToAction(nameof(Index));
         }
 

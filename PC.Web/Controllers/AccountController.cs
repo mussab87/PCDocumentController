@@ -43,7 +43,7 @@ namespace PC.Web.Controllers
                     string[] answerList = model.a.Split(" + ");
                     if (Convert.ToInt32(answerList[0]) + Convert.ToInt32(answerList[1]) != Convert.ToInt32(model.result))
                     {
-                        TempData["Message"] = 7;
+                        TempData["Message"] = 12;
                         return View(model);
                     }
                 }

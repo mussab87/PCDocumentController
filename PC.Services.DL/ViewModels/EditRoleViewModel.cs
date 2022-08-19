@@ -14,11 +14,11 @@ namespace PC.Services.DL.ViewModels
             Users = new List<string>();
         }
 
-        [Display(Name = "رقم الصلاحية")]
+        [Display(Name = "Role Id")]
         public string Id { get; set; }
 
-        [Required(ErrorMessage = "اسم الصلاحيةحقل مطلوب")]
-        [Display(Name = "إسم الصلاحية")]
+        [Required(ErrorMessage = "Role Name Field Required")]
+        [Display(Name = "Role Name")]
         public string RoleName { get; set; }
 
         public List<string> Users { get; set; }

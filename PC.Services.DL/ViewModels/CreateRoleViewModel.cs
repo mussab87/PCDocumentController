@@ -10,9 +10,8 @@ namespace PC.Services.DL.ViewModels
 {
     public class CreateRoleViewModel
     {
-        [Required(ErrorMessage = "إسم الصلاحية حقل إجباري")]
-        [Display(Name = "إسم الصلاحية")]
-        //إسم الصلاحية حقل إجباري
+        [Required(ErrorMessage = "Role Name Field Required")]
+        [Display(Name = "Role Name")]
         public string RoleName { get; set; }
 
         public List<IdentityRole> Roles { get; set; }

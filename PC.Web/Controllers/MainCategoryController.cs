@@ -13,7 +13,7 @@ namespace PC.Web.Controllers
 {
     //Audit when save add this await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
     [Authorize(Roles = SD.Admin)]
-   //[AllowAnonymous]
+    //[AllowAnonymous]
     public class MainCategoryController : BaseController
     {
         public MainCategoryController(UserManager<ApplicationUser> userManager,
@@ -56,6 +56,8 @@ namespace PC.Web.Controllers
 
                 await _unitOfWork.MainCategory.AddAsync(model);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                TempData["Message"] = 1;
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -98,9 +100,12 @@ namespace PC.Web.Controllers
                     var oldmainCategory = await _unitOfWork.MainCategory.GetByIdAsync(MainCategoryId);
                     _context.Entry(oldmainCategory).CurrentValues.SetValues(mainCategory);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                    TempData["Message"] = 1;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+                    TempData["Message"] = 5;
                     if (!mainCategoryMatrixExists(mainCategory.MainCategoryId))
                     {
                         return NotFound();
@@ -112,17 +117,20 @@ namespace PC.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            TempData["Message"] = 5;
             return View(mainCategory);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
-        {            
+        {
             var mainCategory = await _unitOfWork.MainCategory.GetByIdAsync(id);
             _unitOfWork.MainCategory.Delete(mainCategory);
 
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+            TempData["Message"] = 1;
             return RedirectToAction(nameof(Index));
         }
 
