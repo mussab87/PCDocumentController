@@ -5,235 +5,244 @@
 }
 
 <form asp-action="CreateResponsible" method="post" enctype="multipart/form-data">
-    <div class="container-fluid">
 
-        <div class="row">
-            <br />
-            <br />
-        </div>
-
-        <div class="row">
-            <ul>
-                <li class="step show" id="step-1">
-                    <div class="bar">
-
-                        <h3>Authority Matrix Request Level</h3>
-                        <div class="status"></div>
-                    </div>
-
-                    <div class="box">
-                        <div class="field-holder">
-
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Input Group -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Authority Matrix Details
+                            </h2>
+                        </div>
+                        <div class="body">
                             <input type="hidden" asp-for="CategoryHeaderId" />
                             <input type="hidden" asp-for="CreatedDateTime" />
                             <input type="hidden" asp-for="UpdatedById" />
                             <input type="hidden" asp-for="UpdatedDateTime" />
                             <input type="hidden" asp-for="DetailsId" />
 
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label asp-for=AuthorityDataNames.authorityMatrixName>Authority Matrix </label>
-
-                                    <input type="text" asp-for="AuthorityDataNames.authorityMatrixName" class="form-control input-lg" disabled="disabled" />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label asp-for=AuthorityDataNames.mainCategoryName>Main Category </label>
-                                    <input asp-for=AuthorityDataNames.mainCategoryName class="form-control input-lg" disabled="disabled" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label asp-for=AuthorityDataNames.activityName>activity </label>
-
-                                    <input asp-for="AuthorityDataNames.activityName" class="form-control input-lg" disabled="disabled" />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label asp-for=AuthorityDataNames.detailsName>Details </label>
-                                    <textarea asp-for=AuthorityDataNames.detailsName class="form-control input-lg" required="required" disabled="disabled"></textarea>
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for=AuthorityDataNames.authorityMatrixName>Authority Matrix </label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for=AuthorityDataNames.authorityMatrixName class="form-control" disabled="disabled">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for=AuthorityDataNames.mainCategoryName>Main Category </label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for=AuthorityDataNames.mainCategoryName class="form-control" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        </div>
-                        <div class="btn-group pull-left row" id="divBackRecordButton">
-                            <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
-                                <a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@Model.AuthorityId" class="btn btn-primary m-b-md" type="button" title="Back">
-                                    <span><i class="fa fa-arrow-left"></i>&nbsp;Back</span>
-                                </a>
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for=AuthorityDataNames.activityName>Activity </label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for=AuthorityDataNames.activityName class="form-control" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for=AuthorityDataNames.detailsName>Details </label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for=AuthorityDataNames.detailsName class="form-control" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div class="row clearfix">
+                                <div class="button-demo">
+
+                                    <a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@Model.AuthorityId" class="btn bg-warning waves-effect" type="button" title="Back">
+                                        Back
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </li>
 
-                <br />
+                    <!-- Table for request-->
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                User Authority List
+                            </h2>
 
+                        </div>
 
+                        <div class="body">
 
-            </ul>
-            <div class="row" id="divResults">
-                <div class="resultTable" style="padding: 20px; padding-bottom: 50px">
-                    @if (Model.TrsData.Any())
-                    {
-                        <table width="100%" class="table table-bordered" id="tbl" name="tbl">
-
-                            <thead>
-                                <tr style="outline: thin solid">
-                                    <th colspan="7" style="text-align: -webkit-center;font-size: 20px;font-weight: bold;font-style: italic;">All Requests Under this Level</th>
-                                </tr>
-                                <tr>
-
-                                    <th>No</th>
-                                    <th>
-                                        Request No
-                                    </th>
-                                    <th>Responsible</th>
-                                    <th>Date & Time</th>
-                                    <th>Responsible Comments</th>
-                                    <th>Attachment</th>
-                                    @*<th>count</th>*@
-                                    <th>Approval Status</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int No = 0;
-                                }
-                                @foreach (var detail in Model.TrsData)
+                            <div class="table-responsive">
+                                @if (Model.TrsData.Any())
                                 {
-                                    No = No + 1;
-                                    <tr>
-                                        <td> @No </td>
-                                        <td>
-                                            @detail.TrsDetails.TrsDetailsId
-                                        </td>
-                                        <td>
-                                            @detail.TrsDetails.CreatedBy.FirstName @detail.TrsDetails.CreatedBy.LastName
-                                        </td>
-                                        <td>
-                                            @detail.TrsDetails.CreatedDateTime
-                                        </td>
-                                        <td>
-                                            @detail.TrsDetails.ResponsibleComments
-                                        </td>
-                                        <td>
-                                            @if (detail.FileAttachment.Any())
-                                            {
-                                                <table class="table table-striped table-bordered media-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Attachment Link</th>
+                                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                        <thead>
+                                            <tr>
 
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (var att in detail.FileAttachment)
-                                                        {
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="~/RequestAttachments/@att.AttachmentPath" target="_blank">Link</a>
-                                                                </td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
+                                                <th>No</th>
+                                                <th>
+                                                    Request No
+                                                </th>
+                                                <th>Responsible</th>
+                                                <th>Date & Time</th>
+                                                <th>Responsible Comments</th>
+                                                <th>Attachment</th>
+                                                @*<th>count</th>*@
+                                                <th>Approval Status</th>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+
+                                                <th>No</th>
+                                                <th>
+                                                    Request No
+                                                </th>
+                                                <th>Responsible</th>
+                                                <th>Date & Time</th>
+                                                <th>Responsible Comments</th>
+                                                <th>Attachment</th>
+                                                @*<th>count</th>*@
+                                                <th>Approval Status</th>
+                                        </tfoot>
+                                        <tbody>
+                                            @{
+                                                int No = 0;
                                             }
-                                        </td>
-                                        @*<td>@detail.ApprovalCount</td>*@
-                                        <td>
-                                            @if (detail.Approvals.Any())
+                                            @foreach (var detail in Model.TrsData)
                                             {
-                                                <table class="table table-striped table-bordered media-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>User</th>
-                                                            <th>Job Title</th>
-                                                            <th>Status</th>
-                                                            <th>Rejection Reason</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        @foreach (var app in detail.Approvals)
+                                                No = No + 1;
+                                                <tr>
+                                                    <td> @No </td>
+                                                    <td>
+                                                        @detail.TrsDetails.TrsDetailsId
+                                                    </td>
+                                                    <td>
+                                                        @detail.TrsDetails.CreatedBy.FirstName @detail.TrsDetails.CreatedBy.LastName
+                                                    </td>
+                                                    <td>
+                                                        @detail.TrsDetails.CreatedDateTime
+                                                    </td>
+                                                    <td>
+                                                        @detail.TrsDetails.ResponsibleComments
+                                                    </td>
+                                                    <td>
+                                                        @if (detail.FileAttachment.Any())
                                                         {
-                                                            string style = "background-color: lightgreen";
-                                                            @if (app.ApprovalStatus.Status == ApprovalType.GoForward.ToString() || app.ApprovalStatus.Status == ApprovalType.Approved.ToString())
-                                                            {
-                                                                style = style;
+                                                            <table class="table table-striped table-bordered media-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Attachment Link</th>
 
-                                                            }
-                                                            else if (app.ApprovalStatus.Status == ApprovalType.Rejected.ToString())
-                                                            {
-                                                                style = "background-color: #FF0000;color:black";
-                                                            }
-                                                            else if (app.ApprovalStatus.Status == ApprovalType.BackForward.ToString())
-                                                            {
-                                                                style = "background-color: #FF0000;color:black";
-                                                            }
-                                                            else
-                                                            {
-                                                                style = "background-color: yellow";
-                                                            }
-                                                            <tr style="@style;">
-                                                                <td>@app.ApplicationUser.FirstName @app.ApplicationUser.LastName</td>
-                                                                <td>@app.ApplicationUser.UserJobTitle[0].JobTitle.JobTitleName</td>
-                                                                <td>@app.ApprovalStatus.Status</td>
-                                                                <td>@app.RejectionReason</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var att in detail.FileAttachment)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="~/RequestAttachments/@att.AttachmentPath" target="_blank">Link</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        }
+                                                    </td>
+                                                    @*<td>@detail.ApprovalCount</td>*@
+                                                    <td>
+                                                        @if (detail.Approvals.Any())
+                                                        {
+                                                            <table class="table table-striped table-bordered media-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>User</th>
+                                                                        <th>Job Title</th>
+                                                                        <th>Status</th>
+                                                                        <th>Rejection Reason</th>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
 
-                                                            </tr>
+                                                                    @foreach (var app in detail.Approvals)
+                                                                    {
+                                                                        string style = "background-color: lightgreen";
+                                                                        @if (app.ApprovalStatus.Status == ApprovalType.GoForward.ToString() || app.ApprovalStatus.Status == ApprovalType.Approved.ToString())
+                                                                        {
+                                                                            style = style;
+
+                                                                        }
+                                                                        else if (app.ApprovalStatus.Status == ApprovalType.Rejected.ToString())
+                                                                        {
+                                                                            style = "background-color: #FF0000;color:black";
+                                                                        }
+                                                                        else if (app.ApprovalStatus.Status == ApprovalType.BackForward.ToString())
+                                                                        {
+                                                                            style = "background-color: #FF0000;color:black";
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            style = "background-color: yellow";
+                                                                        }
+                                                                        <tr style="@style;">
+                                                                            <td>@app.ApplicationUser.FirstName @app.ApplicationUser.LastName</td>
+                                                                            <td>@app.ApplicationUser.UserJobTitle[0].JobTitle.JobTitleName</td>
+                                                                            <td>@app.ApprovalStatus.Status</td>
+                                                                            <td>@app.RejectionReason</td>
+
+                                                                        </tr>
+                                                                    }
+
+                                                                </tbody>
+                                                            </table>
                                                         }
 
-                                                    </tbody>
-                                                </table>
+                                                        @*<a asp-action="RequestStatus"
+                                                            asp-route-catId="@detail.TrsDetails.CategoryHeaderId"
+                                                            asp-route-detailsId="@detail.TrsDetails.TrsDetailsId"
+                                                            class="btn btn-warning text-white"
+                                                            style="cursor:pointer">
+                                                            Check Status
+                                                            </a>*@
+                                                    </td>
+
+                                                </tr>
                                             }
-
-                                            @*<a asp-action="RequestStatus"
-                                                asp-route-catId="@detail.TrsDetails.CategoryHeaderId"
-                                                asp-route-detailsId="@detail.TrsDetails.TrsDetailsId"
-                                                class="btn btn-warning text-white"
-                                                style="cursor:pointer">
-                                                Check Status
-                                                </a>*@
-                                        </td>
-
-                                    </tr>
+                                        </tbody>
+                                    </table>
                                 }
-                            </tbody>
-                        </table>
-                    }
-                    else
-                    {
-                        <p><h4 style="text-align:center">Sorry, No Data Added into this Level</h4></p>
-                    }
-
+                                else
+                                {
+                                    <p><h4 style="text-align:center">Sorry, No Data Added into this Level</h4></p>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- #END# Input Group -->
 
-    </div>
+
+    </section>
 </form>
-<!-- Vendor scripts -->
-<script src="~/vendor/jquery/dist/jquery.min.js"></script>
-<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
-<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
 
 <!-- App scripts -->
-<script src="~/scripts/main.js"></script>
-
-<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
-
-
-<script>
-    $(document).ready(function () {
-
-        $('#ActivityId').select2({});
-    });
-
-
-</script>
+<script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>
+<!-- Custom Js -->
+<script src="~/styles/ww/js/pages/tables/jquery-datatable.js"></script>

@@ -4,128 +4,117 @@
     ViewBag.Title = "Create Category Header";
 }
 
-<div class="container-fluid">
+<form asp-controller="CategoryHeader" asp-action="Create" method="post">
 
-    <div class="row">
-        <br />
-        <br />
-    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Input Group -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Add Category Header
+                            </h2>
+                        </div>
+                        <div class="body">
 
-    <div class="row">
-        <ul>
-            <form asp-controller="CategoryHeader" asp-action="Create" method="post">
-            <li class="step show" id="step-1">
-                <div class="bar">
-                    <h3>Create Category Header</h3>
-                    <div class="status"></div>
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for="AuthorityId"></label>
+                                        <div class="form-line">
+                                            <select asp-for="AuthorityId" asp-items="ViewBag.AuthorityMatrix" required="required">
 
+                                                <option>Select Authority Matrix</option>
+                                            </select>
+                                            <span asp-validation-for="AuthorityId" class="text-danger"></span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for="MainCategoryId"></label>
+                                        <div class="form-line">
+                                            <select asp-for="MainCategoryId" class="form-control show-tick" data-live-search="false" asp-items="ViewBag.MainCategory" required="required" onchange="getActivity()">
+
+                                                <option>Select Main Category</option>
+                                            </select>
+                                            @*<span asp-validation-for="MainCategoryId" class="text-danger"></span>*@
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for="ActivityId"></label>
+                                        <div class="form-line">
+                                            <select asp-for="ActivityId" class="form-control show-tick" data-live-search="false" onchange="getDetails()" required="required">
+
+                                                <option>Select ActivityId</option>
+                                            </select>
+                                            <span asp-validation-for="ActivityId" class="text-danger"></span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for="DetailsId"></label>
+                                        <div class="form-line">
+                                            <select asp-for="DetailsId" class="form-control show-tick" data-live-search="false" required="required">
+
+                                                <option>Select Details</option>
+                                            </select>
+                                            <span asp-validation-for="DetailsId" class="text-danger"></span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <hr />
+                            <div class="row clearfix">
+                                <div class="button-demo">
+                                    <button class="btn bg-primary waves-effect" type="submit" title="Save">
+                                        Save
+                                    </button>
+
+                                    <a asp-controller="CategoryHeader" asp-action="Index" class="btn bg-warning waves-effect" type="button" title="Back">
+                                        Back
+                                    </a>
+                                </div>
+
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                    @*<input type="hidden" asp-form="CategoryHeaderId">*@
-
-                <div class="box">
-                    <div class="field-holder">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="AuthorityId">Authority Matrix</label>
-                                <i class="red">*</i>
-                                <br />
-                                <select asp-for="AuthorityId" class="form-control input-lg required" asp-items="ViewBag.AuthorityMatrix" required="required">
-                                    <option>Select AuthorityMatrix</option>
-                                </select>
-                                <span asp-validation-for="AuthorityId" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label asp-for="MainCategoryId">Main Category</label>
-                                <i class="red">*</i>
-                                <br />
-                                <select asp-for="MainCategoryId" class="form-control input-lg required" asp-items="ViewBag.MainCategory" required="required" onchange="getActivity()">
-                                    <option>Select Main Category</option>
-                                </select>
-                                <span asp-validation-for="MainCategoryId" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="ActivityId">Activity</label>
-                                <i class="red">*</i>
-                                <br />
-                                <select asp-for="ActivityId" name="ActivityId" class="form-control input-lg required" required="required" onchange="getDetails()">
-
-                                    <option>Please Select Activity</option>
-                                </select>
-                                <span asp-validation-for="ActivityId" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label asp-for="DetailsId">Details</label>
-                                <i class="red">*</i>
-                                <br />
-                                <select asp-for="DetailsId" name="DetailsId" class="form-control input-lg required" required="required">
-
-                                    <option>Please Select Details</option>
-                                </select>
-                                <span asp-validation-for="DetailsId" class="text-danger"></span>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <!-- #END# Input Group -->
 
 
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="LevelCount">Work Flow Levels / Please Enter Number </label>
-                                <i class="red">*</i>
-                                <br />
-                                <input type="number" asp-for="LevelCount" class="form-control input-lg required" required="required">
-
-                                <span asp-validation-for="LevelCount" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="btn-group pull-right row" id="divSaveRecordButton">
-                        <div class="form-group col-md-12" style="padding-right: 50px; padding-bottom: 20px">
-                            <button class="btn btn-primary m-b-md" type="submit" title="Save" value="">
-                                <span><i class="fa fa-floppy-o"></i>&nbsp;Save</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="btn-group pull-left row" id="divBackRecordButton">
-                        <div class="form-group col-md-10" style="padding-left: 60px; padding-bottom: 20px">
-                            <a asp-controller="CategoryHeader" asp-action="Index" class="btn btn-primary m-b-md" type="button" title="Back">
-                                <span><i class="fa fa-arrow-left"></i>&nbsp;Back</span>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            </form>
-            <br />
-
-        </ul>
-
-
-    </div>
-
-</div>
-
-<!-- Vendor scripts -->
-<script src="~/vendor/jquery/dist/jquery.min.js"></script>
-<script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
-<script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="~/vendor/metisMenu/dist/metisMenu.min.js"></script>
+    </section>
+</form>
 
 <!-- App scripts -->
-<script src="~/scripts/main.js"></script>
-
-<script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
-<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
-
+<script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>
 
 <script type="text/javascript">
      $(document).ready(function () {

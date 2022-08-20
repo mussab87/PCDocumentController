@@ -49,6 +49,9 @@ namespace PC.Web.Controllers
             //HttpContext.Session.se("setting", getSetting);
 
             //throw new Exception("Error has been occured");
+            ViewBag.users = _context.Users.Count();
+            ViewBag.Approvals = _context.TrsDetails.Count();
+            ViewBag.AuthorityMatrix = _context.AuthorityMatrix.Count();
             return View();
         }
 

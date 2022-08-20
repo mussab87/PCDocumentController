@@ -126,8 +126,29 @@ namespace PC.Web.Controllers
                 TempData["Message"] = 1;
                 return RedirectToAction("CreateResponsible", new { catId = model.CategoryHeaderId, });
             }
+
             TempData["Message"] = 5;
+            await CreateResponsibleGetAction(model);
+
+            GetLookup();
             return View(model);
+        }
+
+        private async Task CreateResponsibleGetAction(CreateResponsibleViewModel model)
+        {
+            CategoryHeader categoryHeader = await GetCategoryHeader(model.CategoryHeaderId);
+            AuthorityMatrixCategoryHeader authorityId = await GetAuthorityMatrix(categoryHeader);
+            model.AuthorityDataNames.authorityMatrixName = authorityId.AuthorityMatrix.Name;
+
+            model.AuthorityDataNames.mainCategoryName = categoryHeader.MainCategory.Name;
+            model.AuthorityDataNames.activityName = categoryHeader.Activity.Name;
+            model.AuthorityDataNames.detailsName = categoryHeader.Details.Name;
+
+            model.CategoryHeaderId = categoryHeader.CategoryHeaderId;
+            model.AuthorityId = authorityId.AuthorityMatrix.AuthorityId;
+            model.MainCategoryId = categoryHeader.MainCategory.MainCategoryId;
+            model.ActivityId = categoryHeader.Activity.ActivityId;
+            model.DetailsId = categoryHeader.Details.DetailsId;
         }
 
         [HttpGet]
