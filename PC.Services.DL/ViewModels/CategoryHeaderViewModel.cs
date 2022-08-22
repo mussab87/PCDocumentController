@@ -39,8 +39,8 @@ namespace PC.Services.DL.ViewModels
         [Display(Name = "Dteails")]
         public int DetailsId { get; set; }
 
-        [Required(ErrorMessage = "Number of Workflow Levels")]
-        [Display(Name = "Category")]
+        [Required(ErrorMessage = "Number of Workflow Levels Field Required")]
+        [Display(Name = "Number of Workflow Levels")]
         public int LevelCount { get; set; }
 
         //[Required(ErrorMessage = "Workflow Level User Field Required")]

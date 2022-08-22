@@ -53,7 +53,7 @@
                                     <div class="input-group input-group-lg">
                                         <label asp-for="MainCategoryId"></label>
                                         <div class="form-line">
-                                            <select asp-for="MainCategoryId" class="form-control show-tick" data-live-search="false" asp-items="ViewBag.MainCategory" required="required">
+                                            <select asp-for="MainCategoryId" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.MainCategory" required="required">
 
                                                 <option>Select Main Category</option>
                                             </select>
@@ -92,3 +92,13 @@
 
 <!-- App scripts -->
 <script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+
+    $('#MainCategoryId').select2({});
+
+    });
+
+
+    </script>*@

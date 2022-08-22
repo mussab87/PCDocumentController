@@ -24,7 +24,7 @@
                                     <div class="input-group input-group-lg">
                                         <label asp-for="AuthorityId"></label>
                                         <div class="form-line">
-                                            <select asp-for="AuthorityId" asp-items="ViewBag.AuthorityMatrix" required="required">
+                                            <select asp-for="AuthorityId" asp-items="ViewBag.AuthorityMatrix" class="form-control show-tick" data-live-search="false" required="required">
 
                                                 <option>Select Authority Matrix</option>
                                             </select>
@@ -60,7 +60,7 @@
                                         <div class="form-line">
                                             <select asp-for="ActivityId" class="form-control show-tick" data-live-search="false" onchange="getDetails()" required="required">
 
-                                                <option>Select ActivityId</option>
+                                                <option>Select Activity</option>
                                             </select>
                                             <span asp-validation-for="ActivityId" class="text-danger"></span>
                                         </div>
@@ -80,6 +80,21 @@
                                                 <option>Select Details</option>
                                             </select>
                                             <span asp-validation-for="DetailsId" class="text-danger"></span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <label asp-for="LevelCount"></label>
+                                        <div class="form-line">
+                                            <input type="number" asp-for="LevelCount" class="form-control" placeholder="Number of Workflow Levels / Please Enter Number">
+                                            <span asp-validation-for="LevelCount" class="text-danger"></span>
+
                                         </div>
 
 
@@ -118,16 +133,17 @@
 
 <script type="text/javascript">
      $(document).ready(function () {
-
+         getDetails();
+        getActivity();
         $('#MainCategoryId').select2({});
         $('#ActivityId').select2({});
         $('#DetailsId').select2({});
+        $('#AuthorityId').select2({});
 
-        $('#LevelUser').select2({});
-        $('#LevelRole').select2({});
+        //$('#LevelUser').select2({});
+        //$('#LevelRole').select2({});
 
-        getDetails();
-        getActivity();
+
 
     });
 

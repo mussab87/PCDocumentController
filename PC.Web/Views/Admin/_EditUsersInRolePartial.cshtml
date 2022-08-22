@@ -2,10 +2,9 @@
 
 @{
     var roleId = ViewBag.roleId;
-    //Layout = "~/Views/Shared/_Home.cshtml";
 }
 
-<div class="modal fade" id="addUser">
+<div class="modal fade" id="addUserr" tabindex="-1" data-backdrop="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,7 +15,7 @@
             </div>
 
             <div class="modal-body">
-                <form controller="Admin" action="EditUsersInRole" >
+                <form controller="Admin" action="EditUsersInRole">
 
                     <input type="hidden" id="SelectedRoleId" value="@roleId" />
                     <div class="form-group">

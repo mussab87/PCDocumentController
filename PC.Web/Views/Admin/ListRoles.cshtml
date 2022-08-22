@@ -4,7 +4,6 @@
 }
 
 <section class="content">
-    <div id="PlaceHolderHereUser"></div>
     <div class="container-fluid">
         <div class="block-header">
 
@@ -26,66 +25,67 @@
                     </div>
 
                     <div class="body">
+                        <div id="PlaceHolderHereUser"></div>
 
                         <div class="table-responsive">
                             @if (Model.Any())
                             {
-                                                        <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        Id
-                                                                    </th>
-                                                                    <th>
-                                                                        Role Name
-                                                                    </th>
-                                                                    <th></th>
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Role Name
+                                            </th>
+                                            <th></th>
 
-                                                                </tr>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>
-                                                                        Id
-                                                                    </th>
-                                                                    <th>
-                                                                        Role Name
-                                                                    </th>
-                                                                    <th></th>
-                                                            </tfoot>
-                                                            <tbody>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Role Name
+                                            </th>
+                                            <th></th>
+                                    </tfoot>
+                                    <tbody>
                                         @foreach (var role in Model)
                                         {
-                                                                                            <tr>
-                                                                                                <td>@role.Id</td>
-                                                                                                <td>
+                                            <tr>
+                                                <td>@role.Id</td>
+                                                <td>
                                                     @role.Name
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <form method="post" asp-action="DeleteRole" asp-route-id="@role.Id">
+                                                </td>
+                                                <td>
+                                                    <form method="post" asp-controller="Admin" asp-action="DeleteRole" asp-route-id="@role.Id">
 
-                                                                                                        <a asp-action="EditRole" asp-controller="Admin"
+                                                        <a asp-action="EditRole" asp-controller="Admin"
                                                    asp-route-id="@role.Id" class="btn btn-info text-white" style="cursor:pointer">
-                                                                                                            <span class="glyphicon glyphicon-pencil"></span>
-                                                                                                        </a>
-                                                                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delet? : @role.Name')">
-                                                                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                                                                        </button>
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </a>
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delet? : @role.Name')">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
 
-                                                                                                        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addUserr"
+                                                        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addUserr"
                                                         data-url="@Url.Action($"EditUsersInRole?roleId={@role.Id}")">
-                                                                                                            Add Users
-                                                                                                        </button>
-                                                                                                    </form>
-                                                                                                </td>
-                                                                                            </tr>
+                                                            Add Users
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                         }
-                                                            </tbody>
-                                                        </table>
+                                    </tbody>
+                                </table>
                             }
                             else
                             {
-                                                        <p><h4 style="text-align:center">No Data to Display</h4></p>
+                                <p><h4 style="text-align:center">No Data to Display</h4></p>
                             }
                         </div>
                     </div>
@@ -101,4 +101,5 @@
 
 <!-- Custom Js -->
 <script src="~/styles/ww/js/pages/tables/jquery-datatable.js"></script>
+
 

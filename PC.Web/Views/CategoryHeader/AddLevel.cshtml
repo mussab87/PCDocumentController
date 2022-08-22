@@ -119,7 +119,7 @@
                                             <div class="input-group input-group-lg">
                                                 <label asp-for="LevelUser">User</label>
                                                 <div class="form-line">
-                                                    <select asp-for="LevelUser" class="form-control show-tick" data-live-search="false" asp-items="ViewBag.userList" required="required">
+                                                    <select asp-for="LevelUser" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.userList" required="required">
 
                                                         <option>Select User</option>
                                                     </select>
@@ -135,7 +135,7 @@
                                             <div class="input-group input-group-lg">
                                                 <label asp-for="LevelRole">User Role Under This Level</label>
                                                 <div class="form-line">
-                                                    <select asp-for="LevelRole" class="form-control show-tick" data-live-search="false" asp-items="ViewBag.roleList" required="required">
+                                                    <select asp-for="LevelRole" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.roleList" required="required">
 
                                                         <option>Select User Role</option>
                                                     </select>
@@ -291,11 +291,11 @@
 <script src="~/styles/ww/js/pages/tables/jquery-datatable.js"></script>
 
 
-<script>
+@*<script>
     $(document).ready(function () {
 
-        //$('#ActivityId').select2({});
+    $('#LevelUser').select2({});
     });
 
 
-</script>
+    </script>*@

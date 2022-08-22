@@ -90,7 +90,8 @@
                             <div class="table-responsive">
                                 @if (Model.TrsData.Any())
                                 {
-                                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                    <table class="table table-bordered table-striped table-hover dataTable js-exportable" id="tbl">
+                                        @*id="tbl"*@
                                         <thead>
                                             <tr>
 
@@ -165,7 +166,7 @@
                                                     <td>
                                                         @if (detail.Approvals.Any())
                                                         {
-                                                            <table class="table table-striped table-bordered media-table" id="tbl">
+                                                            <table class="table table-striped table-bordered media-table">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>User</th>
@@ -183,7 +184,7 @@
                                                                             <td>@app.ApplicationUser.UserJobTitle[0].JobTitle.JobTitleName</td>
                                                                             <td>@app.ApprovalStatus.Status</td>
                                                                             <td>
-                                                                                <a href="#" class="btn btn-success text-white js-confirm"
+                                                                                <a href="#" class="btn btn-success btn-block text-white js-confirm"
                                                                    catId="@detail.TrsDetails.CategoryHeaderId"
                                                                    detailsId="@detail.TrsDetails.TrsDetailsId"
                                                                    approvalId="@app.ApprovalId"
@@ -191,7 +192,7 @@
                                                                                     Go Forward
                                                                                 </a>
                                                                                 <hr />
-                                                                                <a href="#" class="btn btn-warning text-white js-confirmBack"
+                                                                                <a href="#" class="btn btn-warning text-white btn-block js-confirmBack"
                                                                    catId="@detail.TrsDetails.CategoryHeaderId"
                                                                    detailsId="@detail.TrsDetails.TrsDetailsId"
                                                                    approvalId="@app.ApprovalId"
@@ -234,7 +235,7 @@
 <script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>
 <!-- Custom Js -->
 <script src="~/styles/ww/js/pages/tables/jquery-datatable.js"></script>
-<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>
+@*<script src="~/vendor/sweetalert/lib/sweetalert2.min.js"></script>*@
 
 
 <script>

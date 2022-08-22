@@ -73,7 +73,7 @@
                                     <div class="input-group input-group-lg">
                                         <label asp-for=AttachmentFile.FileName> File Name</label>
                                         <div class="form-line">
-                                            <input asp-for=AttachmentFile.FileName class="form-control">
+                                            <input asp-for=AttachmentFile.FileName class="form-control" required>
                                         </div>
                                         <span asp-validation-for="AttachmentFile.FileName" class="text-danger"></span>
                                     </div>
@@ -83,7 +83,7 @@
                                     <div class="input-group input-group-lg">
                                         <label asp-for=AttachmentFile.File>File </label>
                                         <div class="form-line">
-                                            <input asp-for=AttachmentFile.File class="form-control">
+                                            <input asp-for=AttachmentFile.File class="form-control" required>
                                         </div>
                                         <span asp-validation-for="AttachmentFile.File" class="text-danger"></span>
                                     </div>

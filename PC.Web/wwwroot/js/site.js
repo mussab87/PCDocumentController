@@ -148,16 +148,17 @@ $(function () {
 //*******************************************************//Manage Users******************************************
 $(function () {
     var placeHolderElement = $('#PlaceHolderHereUser');
-
+    debugger;
     $('button[data-toggle="ajax-modal"').click(function (event) {
         //get url action from data-url from the button tag
         var url = $(this).data('url');
         var decodedUrl = decodeURIComponent(url);
+        /*$(".loader").show();*/
         $.get(decodedUrl).done(function (data) {
             placeHolderElement.html(data);
             placeHolderElement.find('.modal').modal('show');
         })
-
+        /*$('#loader').hide();*/
     })
 
     placeHolderElement.on('click', '[data-save="modal"]', function (event) {

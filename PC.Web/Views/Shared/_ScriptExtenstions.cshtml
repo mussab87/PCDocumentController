@@ -81,6 +81,8 @@
 <script src="~/styles/ww/js/pages/examples/sign-in.js"></script>
 
 <script src="~/NToast/NToast.js"></script>
+<script src="~/Scripts/bootbox.js"></script>
+
 
 <!-- Flot Charts Plugin Js -->
 <script src="~/styles/ww/plugins/flot-charts/jquery.flot.js"></script>
@@ -131,10 +133,22 @@
             //*******************************************************
 
             //Fire Policy Partial Popup for user Confirmation
+            debugger;
             var selectedValue = '@config["AppSetting:EnableConfirmPolicy"]';
-            if (selectedValue == 'true') {
+            if (selectedValue == 'true')
+            {
+            var path = window.location.pathname;
+            var page = path.split("/").pop();
+            if(page == "Login")
+            {
+                localStorage.removeItem('userConfirmPolicy');
+            }
+            else{
                 ConfirmUserPolicy();
             }
+            }
+
+
 
             var selectedValue2 = '@config["AppSetting:EnableRightClick"]';
             if (selectedValue2 == 'true') {
@@ -171,60 +185,10 @@
                     }
                 });
             }
-
-
-
-
-            //$('.datepicker').datepicker({ format: 'dd-mm-yyyy' });
-
-
-            //var table = $('#tbl');
-
-            //table.DataTable({
-            //    sort: false,
-            //    dom: 'Bfrtip',
-            //    fixedColumns: false,
-            //    //buttons: [
-            //    //    'excel', 'print'
-            //    //],
-            //    buttons: [
-            //        { extend: 'excel', text: 'Excel Export' },
-            //        {
-            //            extend: 'print', text: 'Print',
-            //            customize: function (win) {
-            //                win.document.body.style.direction = "ltr";
-            //                $(win.document.body).find('h1').css('font-size', '15pt');
-            //                $(win.document.body)
-            //                    .prepend('<div style="text-align:center"><img src="http://10.1.21.38:8080/img/logo.png" style="height:175px;width:200px" /></div>');
-
-            //            }
-            //        }
-            //    ],
-            //    responsive: true,
-            //    lengthMenu: [5, 10, 25, 50],
-            //    pageLength: 10,
-            //    // Order settings
-            //    language: {
-            //        infoEmpty: "Display 0 to zero from 0",
-            //        search: "Search:",
-            //        "info": "Page No _PAGE_ from _PAGES_",
-            //        "lengthMenu": "عرض _MENU_ سجل",
-            //        "paginate": {
-            //            "first": "Start",
-            //            "next": "Next",
-            //            "previous": "Back",
-            //            "last": "Last"
-            //        }
-            //    }
-            //});
-
         });
     });
 
-        //$(document).ready(function () {
 
-
-        //});
 
         function AlertPopup() {
             //set value to TempData["Message"]
@@ -367,30 +331,58 @@
 
         function ConfirmUserPolicy() {
 
-            if (localStorage.getItem('userConfirmPolicy') == null || localStorage.getItem('userConfirmPolicy') == '') {
-                bootbox.confirm({
-                    title: "@config["AppSetting:UserConfirmPolicyTitle"]",
-                    message: "@config["AppSetting:UserConfirmPolicy"]",
-                    buttons: {
-                        cancel: {
-                            label: '<i class="fa fa-times"></i> Cancel'
-                        },
-                        confirm: {
-                            label: '<i class="fa fa-check"></i> Ok'
-                        }
-                    },
-                    callback: function (result) {
-                        console.log('This was logged in the callback: ' + result);
-                        if (result != false) {
-                            localStorage.setItem('userConfirmPolicy', "true");
-                        }
-                        else {
-                            ConfirmUserPolicy();
-                        }
+            //if (localStorage.getItem('userConfirmPolicy') == null || localStorage.getItem('userConfirmPolicy') == '') {
+            //    bootbox.confirm({
+            //        title: "@config["AppSetting:UserConfirmPolicyTitle"]",
+            //        message: "@config["AppSetting:UserConfirmPolicy"]",
+            //        buttons: {
+            //            cancel: {
+            //                label: '<i class="fa fa-times"></i> Cancel'
+            //            },
+            //            confirm: {
+            //                label: '<i class="fa fa-check"></i> Ok'
+            //            }
+            //        },
+            //        callback: function (result) {
+            //            console.log('This was logged in the callback: ' + result);
+            //            if (result != false) {
+            //                localStorage.setItem('userConfirmPolicy', "true");
+            //            }
+            //            else {
+            //                ConfirmUserPolicy();
+            //            }
 
 
-                    }
-                });
+            //        }
+            //    });
+            //}
+
+    if (localStorage.getItem('userConfirmPolicy') == null || localStorage.getItem('userConfirmPolicy') == '')
+    {
+        swal({
+            title: '@config["AppSetting:UserConfirmPolicyTitle"]',
+            text: '@config["AppSetting:UserConfirmPolicy"]',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Confirm Policy',
+            allowOutsideClick: false,
+              allowEscapeKey: false,
+            type: 'warning'
+            },
+            function(resolve) {
+                if(resolve)
+                {
+                    localStorage.setItem('userConfirmPolicy', "true");
+
+                     return;
+                }
+                else{
+
+                   this.ConfirmUserPolicy();
+                }
+
+            });
+
+
             }
 
         }

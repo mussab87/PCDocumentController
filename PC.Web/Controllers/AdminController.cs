@@ -391,7 +391,7 @@ namespace PC.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
+        public async Task<IActionResult> EditUsersInRoleAsync(List<UserRoleViewModel> model, string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);
 
