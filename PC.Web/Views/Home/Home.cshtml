@@ -1,12 +1,17 @@
 ﻿@{
     ViewBag.Title = "Home";
+
+    ApplicationUser applicationUser = await _userManager.GetUserAsync(User);
+    var userMatrix = await _userAuthorityMatrix.getUserAuthorityMatrixAsync(applicationUser);
 }
+
 
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
             <h2>DOCUMENT CONTROLLER DASHBOARD</h2>
         </div>
+        <hr />
         @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
         {
             <!-- Widgets -->
@@ -59,7 +64,85 @@
             </div>
         }
         <hr />
+        @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.User))
+        {
+            <div class="row clearfix">
+                @if (userMatrix != null)
+                {
+                    @foreach (var authority in userMatrix)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 
+                            <div class="card">
+                                <div class="header bg-blue-grey">
+                                    <h2>
+                                        Authority Matrix - Permission
+                                    </h2>
+                                    <ul class="header-dropdown m-r--5">
+                                        <li>
+                                            <a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@authority.AuthorityId">
+                                                <i class="material-icons">note</i>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li><a asp-controller="Approval" asp-action="UserDetails" asp-route-id="@authority.AuthorityId" class=" waves-effect waves-block">Click to Navigate</a></li>
+                                                @*<li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>*@
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="body">
+                                    @*<button type="button" class="btn bg-cyan btn-block btn-lg waves-effect">LARGE</button>*@
+                                    <h3>@authority.Name</h3>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    }
+                }
+            </div>
+            @*<div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="card">
+                <div class="header bg-blue-grey">
+                <h2>
+                Blue Grey - Title <small>Description text here...</small>
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                <li>
+                <a href="javascript:void(0);">
+                <i class="material-icons">mic</i>
+                </a>
+                </li>
+                <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                </ul>
+                </li>
+                </ul>
+                </div>
+                <div class="body">
+                Quis pharetra a pharetra fames blandit. Risus faucibus velit Risus imperdiet mattis neque volutpat, etiam lacinia netus dictum magnis per facilisi sociosqu. Volutpat. Ridiculus nostra.
+                </div>
+                </div>
+                </div>
+
+                </div>*@
+            <!-- #END# Basic Example -->
+        }
 
         <!-- #END# Widgets -->
         @* <div class="row clearfix">
@@ -162,4 +245,5 @@
             </div>*@
     </div>
 </section>
-
+<!-- App scripts -->
+<script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>

@@ -362,6 +362,25 @@ namespace PC.Web.Controllers
                 model.ActivityId = categoryHeader.Activity.ActivityId;
                 model.DetailsId = categoryHeader.Details.DetailsId;
 
+                //get user level for evry user in every row level for getting pemessions
+                IEnumerable<Levels> query = await getLevels(categoryHeader.CategoryHeaderId);
+                if (query.Count() > 0)
+                {
+                    foreach (var level in query.ToList())
+                    {
+                        UserLevels userLevels = new UserLevels();
+                        userLevels.Level = level;
+
+                        var LevelUserRole = roleManager.Roles.Where(r => r.Id == level.LevelRoleId).ToList();
+                        if (LevelUserRole.Count() > 0)
+                        {
+                            userLevels.roleId = LevelUserRole[0].Id;
+                            userLevels.roleName = LevelUserRole[0].Name;
+                        }
+                        model.UserLevels.Add(userLevels);
+                    }
+                }
+
                 //get TrsDetail & approval & attachment for every trsDetail
                 var getTrs = await _unitOfWork.TrsDetails.FindAllAsync(criteria: t => t.CategoryHeaderId == categoryHeader.CategoryHeaderId);
                 if (getTrs.ToList().Count > 0)

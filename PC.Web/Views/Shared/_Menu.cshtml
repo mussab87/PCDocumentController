@@ -8,14 +8,17 @@
 <div class="menu">
     <ul class="list">
         <li class="header">MAIN NAVIGATION</li>
+        @*@{
+            var page = ViewBag.Title;
+            }*@
+
         <li class="active">
+
             <a asp-action="Home" asp-controller="Home" class="toggled waves-effect waves-block">
                 <i class="material-icons">home</i>
                 <span>Home</span>
             </a>
         </li>
-
-
 
 
         @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))

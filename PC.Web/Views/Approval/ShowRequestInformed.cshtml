@@ -172,6 +172,7 @@
                                                                     <tr>
                                                                         <th>User</th>
                                                                         <th>Job Title</th>
+                                                                        <th>Role</th>
                                                                         <th>Status</th>
                                                                         <th>Rejection Reason</th>
                                                                         <td></td>
@@ -202,6 +203,10 @@
                                                                         <tr style="@style;">
                                                                             <td>@app.ApplicationUser.FirstName @app.ApplicationUser.LastName</td>
                                                                             <td>@app.ApplicationUser.UserJobTitle[0].JobTitle.JobTitleName</td>
+                                                                            @{
+                                                                                var userRole = Model.UserLevels.Where(u => u.Level.ApplicationUserId == app.ApplicationUserId).FirstOrDefault();
+                                                                            }
+                                                                            <td>@userRole.roleName</td>
                                                                             <td>@app.ApprovalStatus.Status</td>
                                                                             <td>@app.RejectionReason</td>
 
