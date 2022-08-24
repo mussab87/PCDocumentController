@@ -22,5 +22,7 @@ namespace PC.Services.DL.ViewModels
         public string a { get; set; }
         public int? result { get; set; }
 
+        public string ReturnUrl { get; set; }
+
     }
 }

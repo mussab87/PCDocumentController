@@ -251,7 +251,7 @@
                 if(resolve)
                 {
                     $.ajax({
-                url: "/ApprovalUser/ApproveApprovalUser?approvalId="  + button.attr("approvalId"),
+                url: "/ApprovalUser/ApproveApprovalUser?approvalId="  + button.attr("approvalId") + "&CategoryHeaderId=" + $("#CategoryHeaderId").val(),
                 method: "GET",
                 success: function (data) {
                     //alert(data);
@@ -282,7 +282,7 @@
                     txt = $('#txtcomment').val();
 
                     $.ajax({
-                url: "/ApprovalUser/RejectApprovalUser?approvalId="  + button.attr("approvalId") + "&comment=" + txt,
+                url: "/ApprovalUser/RejectApprovalUser?approvalId="  + button.attr("approvalId") + "&comment=" + txt + "&CategoryHeaderId=" + $("#CategoryHeaderId").val(),
                 method: "GET",
                 success: function (data) {
                     //alert(data);

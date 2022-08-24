@@ -8,6 +8,10 @@
 <div class="card">
     <div class="body">
         <form id="sign_in" asp-action="Login" method="post" autocomplete="off">
+            @if (ViewBag.url != null)
+            {
+                <input type="hidden" asp-for=ReturnUrl value="@ViewBag.url" />
+            }
             <img src="~/images/@config["AppSetting:ApplicationLogo"]" height="100">
             <div class="msg">Sign in to start your session</div>
             <div class="input-group">

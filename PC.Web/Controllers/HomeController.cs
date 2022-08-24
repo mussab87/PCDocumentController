@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PC.Services.Core;
+using PC.Services.Core.Interfaces;
 using PC.Services.Core.Security;
 using PC.Services.DL.DbContext;
 using PC.Web.Models;
@@ -20,7 +21,8 @@ namespace PC.Web.Controllers
            RoleManager<IdentityRole> roleManager,
            AppDBContext context,
            IConfiguration config,
-           IUnitOfWork unitOfWork) : base(userManager, signInManager, roleManager, context, config, unitOfWork)
+           IUnitOfWork unitOfWork,
+           ISendEmail sendEmail) : base(userManager, signInManager, roleManager, context, config, unitOfWork, sendEmail)
         {
         }
 

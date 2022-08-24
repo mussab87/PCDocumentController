@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PC.Services.Core;
+using PC.Services.Core.Interfaces;
 using PC.Services.Core.Security;
 using PC.Services.DL.DbContext;
 using System.Net.Http.Headers;
@@ -16,6 +17,7 @@ namespace PC.Web.Controllers
         protected readonly RoleManager<IdentityRole> roleManager;
         protected readonly AppDBContext _context;
         protected readonly IConfiguration config;
+        protected readonly ISendEmail _sendEmail;
 
         protected readonly IUnitOfWork _unitOfWork;
 
@@ -24,7 +26,8 @@ namespace PC.Web.Controllers
            RoleManager<IdentityRole> roleManager,
            AppDBContext context,
            IConfiguration config,
-           IUnitOfWork unitOfWork)
+           IUnitOfWork unitOfWork,
+           ISendEmail sendEmail)
 
         {
             this.userManager = userManager;
@@ -33,9 +36,10 @@ namespace PC.Web.Controllers
             _context = context;
             this.config = config;
             _unitOfWork = unitOfWork;
+            _sendEmail = sendEmail;
         }
 
         public BaseController() { }
-        
+
     }
 }

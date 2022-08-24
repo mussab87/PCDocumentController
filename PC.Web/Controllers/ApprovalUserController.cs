@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PC.Services.Core;
+using PC.Services.Core.EmailModel;
 using PC.Services.Core.Helper.Consts;
 using PC.Services.Core.Helper.Enums;
+using PC.Services.Core.Interfaces;
 using PC.Services.Core.Models;
 using PC.Services.Core.Security;
 using PC.Services.DL.DbContext;
@@ -24,7 +27,8 @@ namespace PC.Web.Controllers
            RoleManager<IdentityRole> roleManager,
            AppDBContext context,
            IConfiguration config,
-           IUnitOfWork unitOfWork) : base(userManager, signInManager, roleManager, context, config, unitOfWork)
+           IUnitOfWork unitOfWork,
+           ISendEmail sendEmail) : base(userManager, signInManager, roleManager, context, config, unitOfWork, sendEmail)
         {
         }
 
@@ -231,7 +235,7 @@ namespace PC.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ApproveApprovalUser(string approvalId)
+        public async Task<IActionResult> ApproveApprovalUser(string approvalId, string CategoryHeaderId)
         {
             if (approvalId == null)
                 return Json(new { message = "Error" });
@@ -239,6 +243,8 @@ namespace PC.Web.Controllers
             var LoggedInuser = await userManager.GetUserAsync(User);
 
             var Id = Convert.ToInt32(approvalId);
+            var catId = Convert.ToInt32(CategoryHeaderId);
+
             var approvalRow = await _unitOfWork.Approval.GetByIdAsync(Id);
             approvalRow.ApprovalStatusId = (int)ApprovalType.Approved;
             approvalRow.UpdatedBy = LoggedInuser;
@@ -248,11 +254,38 @@ namespace PC.Web.Controllers
             _unitOfWork.Approval.Update(approvalRow);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+            #region send Email
+            //send email to I if exist in same level
+            CreateResponsibleViewModel model = new CreateResponsibleViewModel();
+
+            CategoryHeader categoryHeader = await GetCategoryHeader(catId);
+
+            if (categoryHeader != null)
+            {
+                AuthorityMatrixCategoryHeader authorityId = await GetAuthorityMatrix(categoryHeader);
+                model.AuthorityDataNames.authorityMatrixName = authorityId.AuthorityMatrix.Name;
+
+                model.AuthorityDataNames.mainCategoryName = categoryHeader.MainCategory.Name;
+                model.AuthorityDataNames.activityName = categoryHeader.Activity.Name;
+                model.AuthorityDataNames.detailsName = categoryHeader.Details.Name;
+
+                model.CategoryHeaderId = categoryHeader.CategoryHeaderId;
+                model.AuthorityId = authorityId.AuthorityMatrix.AuthorityId;
+                model.MainCategoryId = categoryHeader.MainCategory.MainCategoryId;
+                model.ActivityId = categoryHeader.Activity.ActivityId;
+                model.DetailsId = categoryHeader.Details.DetailsId;
+            }
+            IEnumerable<Levels> query = await getLevels(model.CategoryHeaderId);
+
+            var sendEmail = SendUserIEmail(query, LoggedInuser, model);
+            //*********************************************************
+            #endregion
+
             return Json(true);
         }
 
         [HttpGet]
-        public async Task<IActionResult> RejectApprovalUser(string approvalId, string comment)
+        public async Task<IActionResult> RejectApprovalUser(string approvalId, string comment, string CategoryHeaderId)
         {
             if (approvalId == null)
                 return Json(new { message = "Error" });
@@ -260,6 +293,8 @@ namespace PC.Web.Controllers
             var LoggedInuser = await userManager.GetUserAsync(User);
 
             var Id = Convert.ToInt32(approvalId);
+            var catId = Convert.ToInt32(CategoryHeaderId);
+
             var approvalRow = await _unitOfWork.Approval.GetByIdAsync(Id);
             approvalRow.UpdatedBy = LoggedInuser;
             approvalRow.UpdatedById = LoggedInuser.Id;
@@ -274,6 +309,32 @@ namespace PC.Web.Controllers
 
             _unitOfWork.Approval.Update(approvalRow);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            #region send Email
+            //send email to I if exist in same level
+            CreateResponsibleViewModel model = new CreateResponsibleViewModel();
+
+            CategoryHeader categoryHeader = await GetCategoryHeader(catId);
+
+            if (categoryHeader != null)
+            {
+                AuthorityMatrixCategoryHeader authorityId = await GetAuthorityMatrix(categoryHeader);
+                model.AuthorityDataNames.authorityMatrixName = authorityId.AuthorityMatrix.Name;
+
+                model.AuthorityDataNames.mainCategoryName = categoryHeader.MainCategory.Name;
+                model.AuthorityDataNames.activityName = categoryHeader.Activity.Name;
+                model.AuthorityDataNames.detailsName = categoryHeader.Details.Name;
+
+                model.CategoryHeaderId = categoryHeader.CategoryHeaderId;
+                model.AuthorityId = authorityId.AuthorityMatrix.AuthorityId;
+                model.MainCategoryId = categoryHeader.MainCategory.MainCategoryId;
+                model.ActivityId = categoryHeader.Activity.ActivityId;
+                model.DetailsId = categoryHeader.Details.DetailsId;
+            }
+            IEnumerable<Levels> query = await getLevels(model.CategoryHeaderId);
+            var sendEmail = SendUserIEmail(query, LoggedInuser, model);
+            //*********************************************************
+            #endregion
 
             return Json(true);
         }
@@ -523,6 +584,81 @@ namespace PC.Web.Controllers
         }
         #endregion
 
+        #region send Email
+
+        public bool SendUserIEmail(IEnumerable<Levels> Level, ApplicationUser LoggedInuser, CreateResponsibleViewModel model)
+        {
+            try
+            {
+                bool result = false;
+                if (Level.Count() > 0)
+                {
+                    foreach (var level in Level.ToList())
+                    {
+                        UserLevels userLevels = new UserLevels();
+                        userLevels.Level = level;
+
+                        //get all levels roles first
+                        var LevelUserRole = roleManager.Roles.Where(r => r.Id == level.LevelRoleId).ToList();
+                        //get user 
+                        //var LevelUser = await userManager.FindByIdAsync(level.ApplicationUserId);
+                        // GetRolesAsync returns the list of user Roles
+                        //var userRoles = await userManager.GetRolesAsync(LevelUser);
+                        //fill Level role Id & name
+                        if (LevelUserRole.Count() > 0)
+                        {
+                            if (LevelUserRole[0].Name == "I")
+                            {
+                                //get user email
+                                string userEmail = null;
+                                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                                    userEmail = "ahmed.mohamed@procare.com.sa"; //"mussab87@gmail.com";
+
+                                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                                    userEmail = userManager.FindByIdAsync(userLevels.Level.ApplicationUserId).Result.Email;
+
+                                //get user logged in url
+                                var Userurl = HttpContext.Request.GetEncodedUrl();
+                                var url = Userurl.Split("/").ToList();
+                                var sendUrl = url[0] + "//" + url[2];
+                                sendUrl = sendUrl + "/Approval/ShowRequestInformed?catId=" + model.CategoryHeaderId + "&levelRoleName=I&userId=" + userLevels.Level.ApplicationUserId + "&showInformed=I";
+
+                                string messageBody = "<font><h2>New Authority Matrix Action has been added  : </h2></font><br />" +
+
+                                "<br />Click below link to navigate to the request: " +
+                                "<br /> " + sendUrl +
+                                "<br /><br /> <h1> ProCare Notification Email </h1>";
+
+                                //send email here
+                                EmailInfo emailInfo = new EmailInfo();
+                                emailInfo.From = config.GetValue<string>("AppSetting:FromEmail");
+                                emailInfo.SmtpCredentials = config.GetValue<string>("AppSetting:SmtpCredentials");
+                                emailInfo.To = userEmail;
+                                emailInfo.Subject = config.GetValue<string>("AppSetting:Subject");
+                                emailInfo.SmtpClient = config.GetValue<string>("AppSetting:SmtpClient");
+                                emailInfo.SmtpPort = config.GetValue<int>("AppSetting:SmtpPort");
+                                emailInfo.UseDefaultCredentials = config.GetValue<bool>("AppSetting:UseDefaultCredentials");
+                                emailInfo.EnableSsl = config.GetValue<bool>("AppSetting:EnableSsl");
+                                emailInfo.messageBody = messageBody;
+
+                                _sendEmail.SendEmail(emailInfo);
+                                result = true;
+
+                            }
+                        }
+                    }
+                }
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+        }
+
+        #endregion
 
 
 

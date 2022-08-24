@@ -71,5 +71,33 @@ namespace PC.Web.Models
         [Required(ErrorMessage = " Required Field ")]
         [Display(Name = "Enable Security Answer")]
         public bool? SecurityAnswer { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "From Email")]
+        public string From { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "Smtp Credentials")]
+        public string SmtpCredentials { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "Email Subject")]
+        public string Subject { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "Smtp Client / Link or Ip Address")]
+        public string SmtpClient { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "Smtp Port")]
+        public int SmtpPort { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "Use Default Credentials")]
+        public bool UseDefaultCredentials { get; set; }
+
+        [Required(ErrorMessage = " Required Field ")]
+        [Display(Name = "EnableSsl")]
+        public bool EnableSsl { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PC.Services.Core;
+using PC.Services.Core.Interfaces;
 using PC.Services.Core.Models;
 using PC.Services.Core.Security;
 using PC.Services.DL.DbContext;
@@ -18,22 +19,26 @@ namespace PC.Web.Controllers
             RoleManager<IdentityRole> roleManager,
             AppDBContext context,
             IConfiguration config,
-            IUnitOfWork unitOfWork) : base(userManager, signInManager, roleManager, context, config, unitOfWork)
+            IUnitOfWork unitOfWork,
+           ISendEmail sendEmail) : base(userManager, signInManager, roleManager, context, config, unitOfWork, sendEmail)
         {
         }
 
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string? ReturnUrl)
         {
+            if (!string.IsNullOrEmpty(ReturnUrl))
+                ViewBag.url = ReturnUrl;
+
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -53,11 +58,11 @@ namespace PC.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         //ModelState.AddModelError(string.Empty, "User Can't Login Please Contact IT Department");
-                        TempData["Message"] = 7;
-                        return Redirect(returnUrl);
+                        //TempData["Message"] = 7;
+                        return Redirect(model.ReturnUrl);
                     }
                     else
                     {

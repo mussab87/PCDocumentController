@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using PC.Services.Core;
+using PC.Services.Core.Interfaces;
 using PC.Services.Core.Security;
 using PC.Services.DL;
 using PC.Services.DL.DbContext;
 using PC.Services.DL.Interfaces;
 using PC.Services.DL.Interfaces.Repos;
+using PC.Services.DL.Repositories;
 using PC.Web.Filters;
 using PC.Web.Initializer;
 
@@ -67,8 +69,7 @@ builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddScoped<IUserAuthorityMatrixHelper, UserAuthorityMatrixHelper>();
-//services.AddTransient<ISettingRepository, SettingRepository>();
-//services.AddSingleton<IConfiguration>(Configuration);
+builder.Services.AddTransient<ISendEmail, SendEmail>();
 
 var app = builder.Build();
 

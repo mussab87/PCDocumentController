@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PC.Services.Core;
 using PC.Services.Core.Helper.Consts;
+using PC.Services.Core.Interfaces;
 using PC.Services.Core.Models;
 using PC.Services.Core.Security;
 using PC.Services.DL.DbContext;
@@ -29,7 +30,8 @@ namespace PC.Web.Controllers
            RoleManager<IdentityRole> roleManager,
            AppDBContext context,
            IConfiguration config,
-           IUnitOfWork unitOfWork) : base(userManager, signInManager, roleManager, context, config, unitOfWork)
+           IUnitOfWork unitOfWork,
+           ISendEmail sendEmail) : base(userManager, signInManager, roleManager, context, config, unitOfWork, sendEmail)
         {
         }
 
@@ -785,6 +787,7 @@ namespace PC.Web.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public IActionResult AppSetting(Setting model)
         {
@@ -796,7 +799,7 @@ namespace PC.Web.Controllers
                 return View(model);
             }
 
-            ModelState.AddModelError("", "يجب ادخال جميع الاعدادات");
+            ModelState.AddModelError("", "Please Enter all Required Fields");
             return View(model);
         }
 
@@ -829,6 +832,15 @@ namespace PC.Web.Controllers
             config.AppSetting.EnableRightClick = model.EnableRightClick;
             config.AppSetting.SecurityAnswer = model.SecurityAnswer;
 
+            //Email Settings
+            config.AppSetting.From = model.From;
+            config.AppSetting.SmtpCredentials = model.SmtpCredentials;
+            config.AppSetting.Subject = model.Subject;
+            config.AppSetting.SmtpClient = model.SmtpClient;
+            config.AppSetting.SmtpPort = model.SmtpPort;
+            config.AppSetting.UseDefaultCredentials = model.UseDefaultCredentials;
+            config.AppSetting.EnableSsl = model.EnableSsl;
+
             var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
             System.IO.File.WriteAllText(appSettingsPath, newJson);
         }
@@ -854,6 +866,14 @@ namespace PC.Web.Controllers
                 model.EnableConfirmPolicy = config.GetValue<string>("AppSetting:EnableConfirmPolicy");
                 model.EnableRightClick = config.GetValue<string>("AppSetting:EnableRightClick");
                 model.SecurityAnswer = config.GetValue<bool>("AppSetting:SecurityAnswer");
+                //Email Settings
+                model.From = config.GetValue<string>("AppSetting:FromEmail");
+                model.SmtpCredentials = config.GetValue<string>("AppSetting:SmtpCredentials");
+                model.Subject = config.GetValue<string>("AppSetting:Subject");
+                model.SmtpClient = config.GetValue<string>("AppSetting:SmtpClient");
+                model.SmtpPort = config.GetValue<int>("AppSetting:SmtpPort");
+                model.UseDefaultCredentials = config.GetValue<bool>("AppSetting:UseDefaultCredentials");
+                model.EnableSsl = config.GetValue<bool>("AppSetting:EnableSsl");
 
                 return model;
             }

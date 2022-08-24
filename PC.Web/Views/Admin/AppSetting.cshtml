@@ -254,6 +254,104 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                        </span>
+                                        <label asp-for="From"></label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for="From" class="form-control">
+                                            <span asp-validation-for="From" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                        </span>
+                                        <label asp-for="SmtpCredentials"></label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for="SmtpCredentials" class="form-control">
+                                            <span asp-validation-for="SmtpCredentials" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                        </span>
+                                        <label asp-for="Subject"></label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for="Subject" class="form-control">
+                                            <span asp-validation-for="Subject" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                        </span>
+                                        <label asp-for="SmtpClient"></label>
+                                        <div class="form-line">
+                                            <input type="text" asp-for="SmtpClient" class="form-control">
+                                            <span asp-validation-for="SmtpClient" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                        </span>
+                                        <label asp-for="SmtpPort"></label>
+                                        <div class="form-line">
+                                            <input type="number" asp-for="SmtpPort" class="form-control">
+                                            <span asp-validation-for="SmtpPort" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+
+                                        </span>
+                                        <label asp-for="UseDefaultCredentials"></label>
+                                        <div class="form-line">
+                                            <select asp-for="UseDefaultCredentials" class="form-control show-tick" data-live-search="false">
+                                                <option value="true"> Yes </option>
+                                                <option value="False"> No </option>
+                                            </select>
+                                            <span asp-validation-for="UseDefaultCredentials" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+
+                                        </span>
+                                        <label asp-for="EnableSsl"></label>
+                                        <div class="form-line">
+                                            <select asp-for="EnableSsl" class="form-control show-tick" data-live-search="false">
+                                                <option value="true"> Yes </option>
+                                                <option value="False"> No </option>
+                                            </select>
+                                            <span asp-validation-for="EnableSsl" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <hr />

@@ -255,7 +255,7 @@
                 if(resolve)
                 {
                     $.ajax({
-                url: "/Approval/ApproveConsulted?approvalId="  + button.attr("approvalId"),
+                url: "/Approval/ApproveConsulted?approvalId="  + button.attr("approvalId") + "&CategoryHeaderId=" + $("#CategoryHeaderId").val(),
                 method: "GET",
                 success: function (data) {
                     //alert(data);
@@ -286,7 +286,7 @@
                     txt = $('#txtcomment').val();
 
                     $.ajax({
-                url: "/Approval/BackConsulted?approvalId="  + button.attr("approvalId") + "&comment=" + txt,
+                url: "/Approval/BackConsulted?approvalId="  + button.attr("approvalId") + "&comment=" + txt + "&CategoryHeaderId=" + $("#CategoryHeaderId").val(),
                 method: "GET",
                 success: function (data) {
                     //alert(data);
