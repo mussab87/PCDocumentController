@@ -1207,7 +1207,7 @@ namespace PC.Web.Controllers
                                     userEmail = "ahmed.mohamed@procare.com.sa"; //"mussab87@gmail.com";
 
                                 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-                                    userEmail = userManager.FindByIdAsync(userLevels.Level.ApplicationUserId).Result.Email;
+                                    userEmail = "ahmed.mohamed@procare.com.sa"; //userManager.FindByIdAsync(userLevels.Level.ApplicationUserId).Result.Email;
 
                                 //get user logged in url
                                 var Userurl = HttpContext.Request.GetEncodedUrl();

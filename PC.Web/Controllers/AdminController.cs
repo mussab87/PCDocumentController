@@ -94,9 +94,17 @@ namespace PC.Web.Controllers
                 if (result.Succeeded)
                 {
                     //Add User Job Title
+                    //UserJobTitle userJobTitle = new UserJobTitle();
+                    //userJobTitle.Id = user.Id;
+                    //userJobTitle.JobTitleId = _context.jobTitle.FindAsync(model.Job).Result.JobTitleId;//_unitOfWork.JobTitle.GetByIdAsync(model.Job).Result.JobTitleId
+                    //await _context.UserJobTitle.AddAsync(userJobTitle);
+                    //await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                     UserJobTitle userJobTitle = new UserJobTitle();
+                    userJobTitle.ApplicationUser = user;
                     userJobTitle.Id = user.Id;
-                    userJobTitle.JobTitleId = _unitOfWork.JobTitle.GetByIdAsync(model.Job).Result.JobTitleId; //_context.jobTitle.FindAsync(model.Job).Result.JobTitleId;
+                    userJobTitle.JobTitle = await _unitOfWork.JobTitle.GetByIdAsync(model.Job);
+                    userJobTitle.JobTitleId = userJobTitle.JobTitle.JobTitleId;
+
                     await _context.UserJobTitle.AddAsync(userJobTitle);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
 
@@ -606,7 +614,9 @@ namespace PC.Web.Controllers
 
             var model = new List<UserRolesViewModel>();
 
-            foreach (var role in roleManager.Roles)
+            var roleList = roleManager.Roles.Where(r => r.Name != "R" && r.Name != "C" && r.Name != "I" & r.Name != "A");
+
+            foreach (var role in roleList) //roleManager.Roles
             {
                 var userRolesViewModel = new UserRolesViewModel
                 {

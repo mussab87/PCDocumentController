@@ -52,13 +52,13 @@ namespace PC.Web.Controllers
             //HttpContext.Session.se("setting", getSetting);
 
             //get user active requests using include
-            var LoggedInuser = await userManager.GetUserAsync(User);
-            var user = await userManager.Users.Include(x => x.UserMatrix)
-                        .ThenInclude(z => z.AuthorityMatrix)
-                        .ThenInclude(z => z.AuthorityMatrixCategoryHeader)
-                        .ThenInclude(z => z.CategoryHeader)
-                        .ThenInclude(z => z.MainCategory)
-                        .Where(u => u.Id == LoggedInuser.Id).ToListAsync();
+            //var LoggedInuser = await userManager.GetUserAsync(User);
+            //var user = await userManager.Users.Include(x => x.UserMatrix)
+            //            .ThenInclude(z => z.AuthorityMatrix)
+            //            .ThenInclude(z => z.AuthorityMatrixCategoryHeader)
+            //            .ThenInclude(z => z.CategoryHeader)
+            //            .ThenInclude(z => z.MainCategory)
+            //            .Where(u => u.Id == LoggedInuser.Id).ToListAsync();
 
             //throw new Exception("Error has been occured");
             ViewBag.users = _context.Users.Count();
