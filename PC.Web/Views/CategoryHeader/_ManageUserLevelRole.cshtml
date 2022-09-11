@@ -25,7 +25,7 @@
                             <i class="red">*</i>
                             <br />
                             <select asp-for="roleId" class="form-control input-lg required" asp-items="ViewBag.roleList" onchange="getroleId()" required="required">
-                                <option>Select User Role</option>
+                                <option value="0">Select User Role</option>
                             </select>
                             <span asp-validation-for="roleId" class="text-danger"></span>
                         </div>

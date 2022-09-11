@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home";
+
+    ApplicationUser applicationUser = await _userManager.GetUserAsync(User);
+    var userMatrix = await _userAuthorityMatrix.getUserAuthorityMatrixAsync(applicationUser);
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>DOCUMENT CONTROLLER DASHBOARD</h2>
+        </div>
+        <hr />
+        @if (signInManager.IsSignedIn(User) && signInManager.Context.User.IsInRole(SD.Admin))
+        {
+            <!-- Widgets -->
+            <div class="row clearfix">
+
+                @if (ViewBag.error != null)
+                {
+                    @ViewBag.error
+                }
+
+
+            </div>
+        }
+        <hr />
+    </div>
+</section>
+<!-- App scripts -->
+<script src="~/styles/ww/plugins/jquery/jquery.min.js"></script>

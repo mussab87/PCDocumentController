@@ -294,8 +294,14 @@ $(function () {
 
         $.post(actionUrl, sendData + "&LevelId=" + LevelId + "&OldroleId=" + OldroleId + "&NewroleId=" + NewroleId).done(function (data) {
 
-            window.location.reload();
-            placeHolderElementLevel.find('.modal').modal('hide');
+            if (data == false) {
+                alert("please select valid role for selected user");
+            }
+            else if (data == true) {
+                window.location.reload();
+                placeHolderElementLevel.find('.modal').modal('hide');
+            }
+
         })
     })
 })

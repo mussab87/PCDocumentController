@@ -205,6 +205,7 @@ namespace PC.Web.Controllers
                 //string[] includes2 = { "CategoryHeader" };
                 IEnumerable<Levels> query = await getLevels(id);
 
+                model.LevelCount = categoryHeader.LevelCount;
                 //check if exist level user
                 if (query.Count() > 0)
                 {
@@ -212,6 +213,7 @@ namespace PC.Web.Controllers
                     {
                         UserLevels userLevels = new UserLevels();
                         userLevels.Level = level;
+                        userLevels.Level.ApplicationUser = await userManager.FindByIdAsync(level.ApplicationUserId);
 
                         //get all levels roles first
                         var LevelUserRole = roleManager.Roles.Where(r => r.Id == level.LevelRoleId).ToList();
@@ -245,6 +247,12 @@ namespace PC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.LevelUser == "0" || model.LevelRole == "0")
+                {
+                    TempData["Message"] = 14;
+                    //GetLookup();
+                    return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
+                }
                 var categoryHeader = await _unitOfWork.CategoryHeader.GetByIdAsync(model.CategoryHeaderId);
                 if (categoryHeader != null)
                 {
@@ -294,20 +302,103 @@ namespace PC.Web.Controllers
                     //var userRoles = await userManager.GetRolesAsync(LevelUser);
 
                     TempData["Message"] = 1;
-                    GetLookup();
-
-
+                    //GetLookup();
                     return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
                 }
 
                 TempData["Message"] = 5;
-                GetLookup();
+                //GetLookup();
                 return View("Create", model);
             }
 
             TempData["Message"] = 5;
-            GetLookup();
+            //GetLookup();
             return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateWorkflowLevel(CategoryHeaderViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var categoryHeader = await _unitOfWork.CategoryHeader.GetByIdAsync(model.CategoryHeaderId);
+                if (categoryHeader.LevelCount == model.LevelCount)
+                {
+                    return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
+                }
+
+                if (categoryHeader != null)
+                {
+                    //update new levelCount on categoryHeader table
+                    var LoggedInuser = await userManager.GetUserAsync(User);
+                    categoryHeader.LevelCount = model.LevelCount;
+                    categoryHeader.UpdatedBy = LoggedInuser;
+                    categoryHeader.UpdatedById = LoggedInuser.Id;
+                    categoryHeader.UpdatedDateTime = DateTime.Now;
+
+                    _context.CategoryHeader.Update(categoryHeader);
+                    await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+                    TempData["Message"] = 1;
+                    return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
+                }
+
+                TempData["Message"] = 5;
+                return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
+            }
+
+            TempData["Message"] = 5;
+            return RedirectToAction("AddLevel", new { id = model.CategoryHeaderId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteLevel(string id, int Catid)
+        {
+            try
+            {
+                //check if user has approval transactions in trsDetail & approval table
+                var TrsDetail = await _unitOfWork.TrsDetails.FindAllAsync(criteria: q => q.CategoryHeaderId == Catid);
+                bool existTrs = false;
+                if (TrsDetail.ToList().Count > 0)
+                {
+                    foreach (var item in TrsDetail.ToList())
+                    {
+                        var userTrs = await _unitOfWork.Approval.FindAllAsync(criteria: q => q.ApplicationUserId == id && q.TrsDetailsId == item.TrsDetailsId);
+                        if (userTrs != null)
+                        {
+                            existTrs = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (existTrs)
+                {
+                    TempData["Message"] = 4;
+                    return RedirectToAction("AddLevel", new { id = Catid });
+                }
+
+                var userLevel = await _unitOfWork.Levels.FindAsync(criteria: q => q.ApplicationUserId == id && q.CategoryHeaderId == Catid);
+
+                if (userLevel == null)
+                {
+                    ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                    return View("NotFound");
+                }
+
+                _unitOfWork.Levels.Delete(userLevel);
+
+                await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                TempData["Message"] = 1;
+                return RedirectToAction("AddLevel", new { id = Catid });
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Message"] = 4;
+                return RedirectToAction("AddLevel", new { id = Catid });
+            }
 
 
         }
@@ -337,14 +428,14 @@ namespace PC.Web.Controllers
         public async Task<IActionResult> ManageUserLevelRole(UserLevels model,
                             string LevelId, string OldroleId, string NewroleId)
         {
-            if (OldroleId == null || NewroleId == null)
+            if (OldroleId == null || model.roleId == null || model.roleId == "0")
             {
-                TempData["Message"] = 1;
-                return Json(true);
+                TempData["Message"] = 13;
+                return Json(false);
             }
             //update user level role 
             var slectedLevel = await _unitOfWork.Levels.GetByIdAsync(Convert.ToInt32(LevelId));
-            slectedLevel.LevelRoleId = NewroleId;
+            slectedLevel.LevelRoleId = model.roleId;
 
             var LoggedInuser = await userManager.GetUserAsync(User);
             slectedLevel.UpdatedBy = LoggedInuser;
@@ -358,7 +449,7 @@ namespace PC.Web.Controllers
             //add role to user if not exist
             //selected user
             var user = await userManager.FindByIdAsync(slectedLevel.ApplicationUserId);
-            var LevelUserRole = roleManager.Roles.Where(r => r.Id == NewroleId).ToList();
+            var LevelUserRole = roleManager.Roles.Where(r => r.Id == model.roleId).ToList();
             if (!(await userManager.IsInRoleAsync(user, LevelUserRole[0].Name)))
             {
                 await userManager.AddToRoleAsync(user, LevelUserRole[0].Name);
@@ -366,7 +457,7 @@ namespace PC.Web.Controllers
             }
 
             //remove old role from user
-            if (OldroleId != NewroleId && OldroleId != null)
+            if (OldroleId != model.roleId && OldroleId != null)
             {
                 var LevelUserOldRole = roleManager.Roles.Where(r => r.Id == OldroleId).ToList();
                 if (await userManager.IsInRoleAsync(user, LevelUserOldRole[0].Name))

@@ -234,7 +234,7 @@
                 NToast(
                     "#e4483d",
                     "tl",
-                    "Sorry, can not be deleted. Please try again or contact ProCare IT",
+                    "Sorry, can't delete this record",
                     true,
                     "fa fa-info",
                     true,
@@ -245,7 +245,7 @@
                 NToast(
                     "#e4483d",
                     "tl",
-                    "Sorry, something went wrong. Please contact ProCare IT",
+                    "Sorry,something went wrong.Please contact ProCare IT",
                     true,
                     "fa e-fe-access-error",
                     true,
@@ -278,7 +278,7 @@
                 NToast(
                     "#D74323",
                     "tl",
-                    "Sorry this user is blocked due entering wrong password more than 3 times, Please call IT department",
+                    "Sorry this user is blocked, Please call IT department",
                     true,
                     "fa e-fe-access-error",
                     true,
@@ -324,6 +324,30 @@
                     "#D74323",
                     "tl",
                     "Sorry, Invalid Security Answer",
+                    true,
+                    "fa e-fe-access-error",
+                    true,
+                    100,
+                )
+            }
+
+            if (Message == 13) {
+                NToast(
+                    "#D74323",
+                    "tl",
+                    "Please select Role for selected user",
+                    true,
+                    "fa e-fe-access-error",
+                    true,
+                    100,
+                )
+            }
+
+            if (Message == 14) {
+                NToast(
+                    "#D74323",
+                    "tl",
+                    "Please select valid user and Role",
                     true,
                     "fa e-fe-access-error",
                     true,

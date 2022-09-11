@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Add Level User";
 }
-<form asp-controller="CategoryHeader" asp-action="AddLevel" method="post">
+<form action="" method="post">
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
@@ -53,11 +53,20 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
 
                                         <div class="row clearfix">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="input-group input-group-lg">
                                                     <label asp-for=AuthorityDataNames.authorityMatrixName>Authority Matrix </label>
                                                     <div class="form-line">
                                                         <input type="text" asp-for=AuthorityDataNames.authorityMatrixName class="form-control" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="input-group input-group-lg">
+                                                    <label asp-for=LevelCount>Workflow Levels </label>
+                                                    <div class="form-line">
+                                                        <input type="number" asp-for=LevelCount class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,6 +108,9 @@
                                         <div class="row clearfix">
                                             <div class="col-md-4">
                                                 <div class="button-demo">
+                                                    <button class="btn bg-primary waves-effect" type="submit" title="Save" asp-controller="CategoryHeader" asp-action="UpdateWorkflowLevel">
+                                                        Save
+                                                    </button>
                                                     <a asp-controller="CategoryHeader" asp-action="Index" class="btn bg-warning waves-effect" type="button" title="Back">
                                                         <span><i class="fa fa-arrow-left"></i>Back</span>
                                                     </a>
@@ -121,7 +133,7 @@
                                                 <div class="form-line">
                                                     <select asp-for="LevelUser" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.userList" required="required">
 
-                                                        <option>Select User</option>
+                                                        <option value="0">Select User</option>
                                                     </select>
                                                     <span asp-validation-for="LevelUser" class="text-danger"></span>
                                                 </div>
@@ -137,7 +149,7 @@
                                                 <div class="form-line">
                                                     <select asp-for="LevelRole" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.roleList" required="required">
 
-                                                        <option>Select User Role</option>
+                                                        <option value="0">Select User Role</option>
                                                     </select>
                                                     <span asp-validation-for="LevelRole" class="text-danger"></span>
                                                 </div>
@@ -152,7 +164,7 @@
                                         <div class="col-md-4">
                                             <div class="button-demo">
 
-                                                <button class="btn bg-primary waves-effect" type="submit" title="Save">
+                                                <button class="btn bg-primary waves-effect" type="submit" title="Save" asp-controller="CategoryHeader" asp-action="AddLevel">
                                                     Save
                                                 </button>
 
@@ -234,11 +246,17 @@
                                                         <td hidden>@level.Level.LevelsId</td>
                                                         <td hidden>@level.Level.CategoryHeaderId</td>
                                                         <td>
-                                                            @level.Level.ApplicationUser.FirstName @level.Level.ApplicationUser.LastName
+                                                            @if (level.Level.ApplicationUser != null)
+                                                            {
+                                                                @level.Level.ApplicationUser.FirstName @level.Level.ApplicationUser.LastName
+                                                            }
+
                                                         </td>
                                                         <td>
-                                                            @level.roleName
-
+                                                            @if (level.roleName != null)
+                                                            {
+                                                                @level.roleName
+                                                            }
                                                         </td>
 
                                                         @*<td>
@@ -258,11 +276,18 @@
 
                                                         <td>
                                                             <form method="post" controller="CategoryHeader" action="ManageUserLevelRole">
-                                                                <button type="button" class="btn btn-info text-white" style="cursor:pointer" data-toggle="ajax-modal" data-target="#addUserLevelRole"
+                                                                <button type="button" class="btn btn-info btn-block text-white" style="cursor:pointer" data-toggle="ajax-modal" data-target="#addUserLevelRole"
                                                                 data-url="@Url.Action($"ManageUserLevelRole/{level.Level.LevelsId}")">
-                                                                    <span><i class="fa fa-edit"></i>Edit Role</span>
+                                                                    @*<span>Edit Role</span>*@
+                                                                    <span class="glyphicon glyphicon-pencil"></span>
                                                                 </button>
 
+                                                            </form>
+
+                                                            <form method="post" asp-controller="CategoryHeader" asp-action="DeleteLevel" asp-route-id="@level.Level.ApplicationUser.Id" asp-route-Catid="@Model.CategoryHeaderId">
+                                                                <button type="submit" class="btn btn-danger btn-block" onclick="return confirm('Are you sure you want to delet? : @level.Level.ApplicationUser.FirstName @level.Level.ApplicationUser.LastName')">
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                </button>
                                                             </form>
                                                         </td>
                                                     </tr>

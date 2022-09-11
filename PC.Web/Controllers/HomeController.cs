@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PC.Services.Core;
+using PC.Services.Core.EmailModel;
 using PC.Services.Core.Interfaces;
 using PC.Services.Core.Security;
 using PC.Services.DL.DbContext;
@@ -71,6 +73,55 @@ namespace PC.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> TestEmail()
+        {
+            try
+            {
+                //test send emnail
+                string userEmail = null;
+                //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                userEmail = "ahmed.mohamed@procare.com.sa"; //userManager.FindByIdAsync(userLevels.Level.ApplicationUserId).Result.Email;
+                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                    userEmail = "mussab87@gmail.com";// "ahmed.mohamed@procare.com.sa"; //"mussab87@gmail.com";
+
+                //get user logged in url
+                var Userurl = HttpContext.Request.GetEncodedUrl();
+                var url = Userurl.Split("/").ToList();
+                var sendUrl = url[0] + "//" + url[2];
+                sendUrl = sendUrl + "test link";
+
+                string messageBody = "<font><h2>New Authority Matrix Action has been added  : </h2></font><br />" +
+
+                "<br />Click below link to navigate to the request: " +
+                "<br /> " + sendUrl +
+                "<br /><br /> <h1> ProCare Notification Email </h1>";
+
+                //send email here
+                EmailInfo emailInfo = new EmailInfo();
+                emailInfo.From = config.GetValue<string>("AppSetting:FromEmail");
+                emailInfo.SmtpCredentials = config.GetValue<string>("AppSetting:SmtpCredentials");
+                emailInfo.To = userEmail;
+                emailInfo.Subject = config.GetValue<string>("AppSetting:Subject");
+                emailInfo.SmtpClient = config.GetValue<string>("AppSetting:SmtpClient");
+                emailInfo.SmtpPort = config.GetValue<int>("AppSetting:SmtpPort");
+                emailInfo.UseDefaultCredentials = config.GetValue<bool>("AppSetting:UseDefaultCredentials");
+                emailInfo.EnableSsl = config.GetValue<bool>("AppSetting:EnableSsl");
+                emailInfo.messageBody = messageBody;
+
+                await _sendEmail.SendEmail(emailInfo);
+
+                ViewBag.error = "success";
+                return View();
+                //******************************
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = "Error " + " " + ex.ToString();
+                return View();
+            }
+
         }
     }
 }

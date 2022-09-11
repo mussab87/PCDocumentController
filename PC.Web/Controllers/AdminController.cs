@@ -843,7 +843,7 @@ namespace PC.Web.Controllers
             config.AppSetting.SecurityAnswer = model.SecurityAnswer;
 
             //Email Settings
-            config.AppSetting.From = model.From;
+            config.AppSetting.FromEmail = model.From;
             config.AppSetting.SmtpCredentials = model.SmtpCredentials;
             config.AppSetting.Subject = model.Subject;
             config.AppSetting.SmtpClient = model.SmtpClient;

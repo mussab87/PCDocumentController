@@ -73,11 +73,11 @@ namespace PC.Web.Models
         public bool? SecurityAnswer { get; set; }
 
         [Required(ErrorMessage = " Required Field ")]
-        [Display(Name = "From Email")]
+        [Display(Name = "Username / Email Address")]
         public string From { get; set; }
 
         [Required(ErrorMessage = " Required Field ")]
-        [Display(Name = "Smtp Credentials")]
+        [Display(Name = "Username / Email Address Password")]
         public string SmtpCredentials { get; set; }
 
         [Required(ErrorMessage = " Required Field ")]

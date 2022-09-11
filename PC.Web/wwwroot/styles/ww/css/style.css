@@ -10110,7 +10110,7 @@ fieldset[disabled] .form-control {
         white-space: nowrap;
         position: relative;
         border-bottom: 1px solid #e9e9e9;
-        background: url("../images/user-img-background.jpg") no-repeat no-repeat;
+        background: url("../../../images/userImagenew.png") no-repeat no-repeat; /*url("../images/user-img-background.jpg") no-repeat no-repeat;*/
         height: 135px;
     }
 
@@ -10388,15 +10388,19 @@ fieldset[disabled] .form-control {
 
 /* Login Page ================================== */
 .login-page {
-    background-color: #00BCD4;
-    padding-left: 0;
+    /*background-color: #00BCD4;*/
+    background-image: url("../../../images/backgroundLogin.png");
+    /*background-position: center center;*/
+    /*background-repeat: no-repeat;*/
+    background-size: cover;
     max-width: 360px;
     margin: 5% auto;
     overflow-x: hidden;
+    opacity: 3;
 }
 
     .login-page .login-box .msg {
-        color: #555;
+        color: #3459A8;
         margin-bottom: 30px;
         text-align: center;
     }

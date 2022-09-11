@@ -17,7 +17,7 @@ namespace PC.Services.DL.Repositories
             try
             {
                 MailMessage email = new MailMessage();
-                SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+                //SmtpClient client = new SmtpClient(emailInfo.SmtpClient);
                 email.To.Add(emailInfo.To);
                 //mail.To.Add("Secondry@gmail.com");
                 email.From = new MailAddress(emailInfo.From);
